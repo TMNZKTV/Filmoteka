@@ -1,0 +1,17 @@
+{{#each this}}
+<div class="modal__img"><img src="https://image.tmdb.org/t/p/w500{{this.backdrop_path}}" alt="{{this.original_title}}">
+</div>
+<h1 class="modal__title">{{this.original_title}}</h1>
+<div class="modal__propetry">
+    <p class="modal__key">Vote / Votes</p>
+    <p class="modal__value"><span>{{this.vote_average}}</span> / {{this.vote_count}}</p>
+    <p class="modal__key">Popularity</p>
+    <p class="modal__value">{{this.popularity}}</p>
+    <p class="modal__key">Original Title</p>
+    <p class="modal__value">{{this.original_title}}</p>
+    <p class="modal__key">Genre</p>
+    <p class="modal__value">{{this.popularity}}</p>
+    <h2 class="modal__about">ABOUT</h2>
+    <p class="modal__text">{{this.overview}}</p>
+</div>
+{{/each}}
