@@ -37,7 +37,7 @@
   width: 882px;
   height: 568px;
 
-  background-color: $white-color;
+  background-color: $light-text-color;
   transition: transform $cubic;
 }
 
@@ -48,7 +48,7 @@
   width: 20px;
   height: 20px;
 
-  background-color: $white-color;
+  background-color: $light-text-color;
 
   border-radius: 50%;
 
@@ -77,12 +77,12 @@
   &:hover::before,
   &:focus::before {
     transform: rotate(-45deg);
-    background-color: $accent-btn-color;
+    background-color: $accent-color;
   }
 
   &:hover::after,
   &:focus::after {
     transform: rotate(45deg);
-    background-color: $accent-btn-color;
+    background-color: $accent-color;
   }
 }

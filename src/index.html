@@ -12,7 +12,30 @@
     />
   </head>
   <body>
-    <header></header>
+    <header class="header-container">
+      <div class="container">
+        <nav>
+          <a class="logo" href="./index.html"
+            ><svg class="logo-img" aria-label="e">
+              <use
+                class="icon-logo"
+                href="./img/symbol-defs.svg#icon-logo"
+              ></use>
+            </svg>
+            Filmoteka</a
+          >
+          <ul class="site-nav-list">
+            <li class="item">
+              <a href="" class="">HOME</a>
+            </li>
+            <li class="item">
+              <a href="" class="">MY LIBRARY</a>
+            </li>
+          </ul>
+        </nav>
+        <div class="change-input"></div>
+      </div>
+    </header>
 
     <main>
       <section class="section">
@@ -30,12 +53,17 @@
 
         <div class="footer-devs">
           <span>Developed with</span>
+          <svg class="favorite" aria-label="e">
+            <use
+              class="icon-favorite"
+              href="./img/symbol-defs.svg#icon-favorite"
+            ></use>
+          </svg>
           <!-- <img src="" alt="" width="14" class=""> -->
           <span>by <a href="" class="link-modal">GoIT Students</a></span>
         </div>
       </div>
     </footer>
-    <button class="open-modal" data-open>Открыть модалку</button>
 
     <button class="open-modal" data-open>Открыть модалку</button>
     <!-- Overlay -->
