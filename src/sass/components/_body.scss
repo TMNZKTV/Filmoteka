@@ -2,3 +2,27 @@ body {
   background-color: white;
   color: brown;
 }
+li {
+  list-style: none;
+}
+.is-hidden {
+  display: none;
+}
+
+.container {
+  margin-left: auto;
+  margin-right: auto;
+  width: 100%;
+
+  @media screen and (min-width: 480px) {
+    width: 462px;
+  }
+
+  @media screen and (min-width: 768px) {
+    width: 750px;
+  }
+
+  @media screen and (min-width: 1200px) {
+    width: 1182px;
+  }
+}

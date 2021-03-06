@@ -12,17 +12,11 @@
     />
   </head>
   <body>
-    <header class="header-container">
+    <header class="page__header">
       <div class="container">
-        <nav>
-          <a href="./index.html" class="logo"
-            ><svg
-              src=""
-              class="logo"
-              width="32"
-              height="32"
-              viewBox="9 0 50 50"
-            >
+        <nav class="navigation">
+          <a href="./index.html" class="navigation__logo"
+            ><svg src="" class="navigation__logo--icon" width="20" height="20">
               <use
                 class="icon-logo"
                 href="./img/symbol-defs.svg#icon-logo"
@@ -30,31 +24,41 @@
             </svg>
             Filmoteka</a
           >
-          <ul class="site-nav-list">
-            <li class="item">
-              <a href="" class="">HOME</a>
-            </li>
-            <li class="item">
-              <a href="" class="">MY LIBRARY</a>
-            </li>
-          </ul>
-          <input
-            type="text"
-            class="form-control"
-            name="query"
-            id="searchQuery"
-            placeholder="Поиск фильмов"
-            autocomplete="off"
-          />
-          <p class="search-error is-hidden">
-            Search result not successful. Enter the correct movie name and
-          </p>
 
-          <div class="is-hidden">
-            <button class="">WATCHED</button>
-            <button class="">QUEUE</button>
+          <div class="menu__container">
+            <ul class="menu__list">
+              <li class="menu__item">
+                <button type="button" data-action="home">HOME</button>
+              </li>
+              <li class="menu__item">
+                <button type="button" data-action="library">MY LIBRARY</button>
+              </li>
+            </ul>
           </div>
         </nav>
+
+        <div class="input-buttons__container">
+          <div class="input__container">
+            <input
+              type="text"
+              class="input__field"
+              name="query"
+              id="searchQuery"
+              placeholder="Поиск фильмов"
+              autocomplete="off"
+            />
+            <p class="search-error is-hidden">
+              Search result not successful. Enter the correct movie name and
+            </p>
+          </div>
+
+          <div class="library__buttons is-hidden">
+            <button type="button" class="library__buttons--item">
+              WATCHED
+            </button>
+            <button type="button" class="library__buttons--item">QUEUE</button>
+          </div>
+        </div>
       </div>
     </header>
 
