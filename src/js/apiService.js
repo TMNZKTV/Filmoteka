@@ -17,16 +17,16 @@ const fetchMovies = {
         return axios(`https://pixabay.com/api/?q=${this.query}&key=${key}&per_page=12&page=${this.page}`)
             .then(({ data: { hits } }) => hits) 
             .catch((err) => notifyError(err));
-        // return axios(`https://api.themoviedb.org/3/search/movie/?query=${this.query}&api_key=${this.apiKey}&page=${this.page}`)
-        //     .then(({ data: { results } }) => results)
-        // .catch((err) => console.log(err));
+        return axios(`https://api.themoviedb.org/3/search/movie/?query=${this.query}&api_key=${this.apiKey}&page=${this.page}`)
+            .then(({ data: { results } }) => results)
+        .catch((err) => console.log(err));
     },
     
-//     fetchPopularMovies() {
-//         return axios(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this.apiKey}`)
-//         .then(({ data }) => data)
-//         .catch((err) => console.log(err));
-// },
+    fetchPopularMovies() {
+        return axios(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this.apiKey}`)
+        .then(({ data }) => data)
+        .catch((err) => console.log(err));
+},
 
     resetPage() {
         this.page = 1;
