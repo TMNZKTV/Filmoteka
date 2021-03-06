@@ -6,3 +6,6 @@ function getGalleryPictures() {
       getMarkupGallery(data);
     });
 }
+
+getGalleryPictures()
+
