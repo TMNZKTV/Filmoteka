@@ -1,0 +1,21 @@
+.gallery {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.film-card {
+  width: calc((100% - 30px * 2) / 3);
+  height: 440;
+  margin-right: 30px;
+
+  &:nth-child(3n) {
+    margin-right: 0;
+  }
+}
+
+.film-img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
