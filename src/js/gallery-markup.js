@@ -12,3 +12,4 @@ function getMarkupGallery() {
 apiService.queryMoves().then(array => getMarkupGallery(array));
 
 export default getMarkupGallery;
+
