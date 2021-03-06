@@ -11,3 +11,4 @@ function getMarkupGallery () {
 getMarkupGallery();
 
 export default getMarkupGallery;
+
