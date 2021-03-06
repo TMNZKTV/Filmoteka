@@ -1,16 +1,11 @@
 import refs from '../js/refs';
 import apiService from './apiService.js';
-import getMarkupGallery from '../templating/gallery.js'
+import getMarkupGallery from './gallery.js'
 import debounce from "lodash.debounce";
 import { notifyInfo } from './notifications.js'
 
-// function initialFetch() {
-//   apiService.fetchPopularMovies().then(getMarkupGallery);
-// }
-// setTimeout(initialFetch, 0);
-
 function initialFetch() {
-  apiService.fetchMovies().then(getMarkupGallery);
+  apiService.fetchPopularMovies().then(getMarkupGallery);
 }
 setTimeout(initialFetch, 0);
 
