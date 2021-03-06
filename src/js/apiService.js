@@ -3,7 +3,14 @@ import axios from 'axios';
 const fetchMovies = {
     searchQuery: '',
     page: 1,
-    // apiKey: 'e1648943ec3f00b3b8db827b73df4be9',
+    apiKey: 'e1648943ec3f00b3b8db827b73df4be9',
+
+    fetchID(id) {
+        return axios(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`)
+        .then(({ data }) => data)
+        .catch((err) => console.log(err));
+    },
+
 
     fetchMovies() {
         const key = '20395824-d8cdb960c2a62f226b2cade5d';
