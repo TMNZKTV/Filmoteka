@@ -1,9 +1,9 @@
 import refs from "./refs";
 import markup from '../templates/modalCard.hbs'
-const {modal} = refs
+const { modal } = refs;
 
-const getMarkupModal = (ojectMove) => {
-    const updateMarkup = markup(ojectMove.results)
+const getMarkupModal = (objectMovie) => {
+    const updateMarkup = markup(objectMovie.results)
     modal.insertAdjacentHTML('beforeend', updateMarkup)
 }
 

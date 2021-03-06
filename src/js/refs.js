@@ -4,6 +4,7 @@ const refs = {
     overlay: document.querySelector('.overlay'),
     modal:document.querySelector('.modal__card'),
     galleryRef: document.querySelector('.gallery'),
+    inputSearch: document.querySelector('#searchQuery'),
 }
 
-export default refs
+export default refs;
