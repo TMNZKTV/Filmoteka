@@ -2,7 +2,7 @@ import refs from '../js/refs';
 import apiService from './apiService.js';
 import getMarkupGallery from '../templating/gallery.js'
 import debounce from "lodash.debounce";
-
+import { notifyInfo } from './notifications.js'
 
 // function initialFetch() {
 //   apiService.fetchPopularMovies().then(getMarkupGallery);
@@ -23,8 +23,13 @@ function onInputSearch(event) {
 
   cleanMarkup();
   // apiService.fetchMovies().then(({ results }) => getMarkupGallery(results));
-  apiService.fetchMovies().then(getMarkupGallery);
-
+  apiService.fetchMovies().then((images) => { 
+    getMarkupGallery(images);
+    if (images.length === 0) {
+      notifyInfo('Try another word', 'No images found for this request');
+    }
+  });
+  
   if(apiService.query === '') {
     cleanMarkup();
   } 
