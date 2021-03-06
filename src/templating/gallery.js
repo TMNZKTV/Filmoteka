@@ -1,4 +1,5 @@
-import itemsTemplate from '../templates/movieGallery.hbs';
+// import itemsTemplate from '../templates/movieGallery.hbs';
+import itemsTemplate from '../templates/image-card.hbs';
 import refs from '../js/refs';
 
 const { galleryRef } = refs;
