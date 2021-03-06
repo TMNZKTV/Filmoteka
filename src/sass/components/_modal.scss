@@ -26,12 +26,10 @@
   padding-right: 30px;
   padding-left: 30px;
 
-  flex-wrap: wrap;
-  transform: translate(-50%, -50%) rotate(360deg);
-  overflow: auto;
+  transform: translate(-50%, -50%) scale(1);
 
   .overlay.is-hidden & {
-    transform: translate(-50%, -50%) rotate(-360deg);
+    transform: translate(-50%, -50%) scale(0);
   }
 
   width: 882px;

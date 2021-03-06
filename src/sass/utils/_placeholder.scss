@@ -1,3 +1,24 @@
-%link {
-  text-decoration: none;
+%button {
+  display: inline-flex;
+  width: 136px;
+  height: 44px;
+  padding: 14px 10px 12px 10px;
+
+  border-radius: 5px;
+
+  background-color: $light-text-color;
+
+  text-transform: uppercase;
+  font-family: 'Roboto';
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  justify-content: center;
+
+  &:hover {
+    background-color: $accent-color;
+    color: $light-text-color;
+  }
+
+  transition: background-color $cubic;
 }
