@@ -1,5 +1,5 @@
 import './sass/main.scss';
 import './js/apiService.js';
-import './js/modal';
-import './js/gallery-markup';
-import './js/fetchService';
+import './js/modal.js';
+// import './templating/gallery';
+import './js/fetchService.js';
