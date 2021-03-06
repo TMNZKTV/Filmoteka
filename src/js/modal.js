@@ -1,31 +1,36 @@
-import refs from "./refs"
-import getMarkupModal from './modal-markup'
-import apiService from './apiService'
-const {modal, closeModal,overlay, galleryRef} = refs
+import refs from './refs';
+import getMarkupModal from './modal-markup';
+import apiService from './apiService';
+const { modal, closeModal, overlay, galleryRef } = refs;
 
+document.addEventListener('keydown', closeModalESC);
+galleryRef.addEventListener('click', getCardMove);
 
-closeModal.addEventListener('click', toggleModal)
-document.addEventListener('keydown', closeModalESC)
-galleryRef.addEventListener('click', getCardMove)
-
-function toggleModal(event) {
-    overlay.classList.toggle('is-hidden')
+function toggleModal() {
+  overlay.classList.toggle('is-hidden');
 }
 
 function closeModalESC(event) {
-    if (event.code === 'Escape') {
-        toggleModal()
-    }
+  if (event.code === 'Escape') {
+    toggleModal();
+  }
 }
 
 function getCardMove(event) {
-    event.preventDefault();
-    const currentFilm = event.target
-    // blockFilm.innerHTML=''
+  event.preventDefault();
 
-console.dir(currentFilm);    
-    const filmID=currentFilm.dataset.id
+  const currentFilm = event.target;
+  modal.innerHTML = '';
 
-    toggleModal()
-    apiService.fetchID(filmID).then(array=>getMarkupModal(array))
+  const filmID = currentFilm.dataset.id;
+
+  toggleModal();
+
+  apiService
+    .fetchID(filmID)
+    .then(array => getMarkupModal([array]))
+    .then(() => {
+      const closeModal = document.querySelector('[data-close]');
+      closeModal.addEventListener('click', toggleModal);
+    });
 }
