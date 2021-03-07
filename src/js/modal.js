@@ -7,6 +7,7 @@ const { modal, closeModal, overlay, galleryRef } = refs;
 
 document.addEventListener('keydown', closeModalESC);
 galleryRef.addEventListener('click', getCardMove);
+overlay.addEventListener('click', closeModalOUT);
 
 function toggleModal() {
   overlay.classList.toggle('is-hidden');
@@ -14,6 +15,12 @@ function toggleModal() {
 
 function closeModalESC(event) {
   if (event.code === 'Escape') {
+    toggleModal();
+  }
+}
+
+function closeModalOUT(event) {
+  if (event.target.className === 'overlay') {
     toggleModal();
   }
 }
