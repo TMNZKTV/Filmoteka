@@ -47,7 +47,7 @@
 
   @include for-size(desktop) {
     width: 882px;
-    height: 568px;
+    height: auto;
   }
 
   background-color: $light-text-color;
