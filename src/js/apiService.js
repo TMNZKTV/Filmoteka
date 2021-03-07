@@ -3,7 +3,7 @@ import axios from 'axios';
 const fetchMovies = {
     searchQuery: '',
     page: 1,
-    apiKey: 'e1648943ec3f00b3b8db827b73df4be9',
+    apiKey: '9b23b616fd8b251b90e7cf1629c32a37',
 
     fetchID(id) {
         return axios(`https://api.themoviedb.org/3/movie/${id}?api_key=${this.apiKey}`)
@@ -11,19 +11,14 @@ const fetchMovies = {
         .catch((err) => console.log(err));
     },
 
-
     fetchMovies() {
-        const key = '20395824-d8cdb960c2a62f226b2cade5d';
-        return axios(`https://pixabay.com/api/?q=${this.query}&key=${key}&per_page=12&page=${this.page}`)
-            .then(({ data: { hits } }) => hits) 
-            .catch((err) => notifyError(err));
-        return axios(`https://api.themoviedb.org/3/search/movie/?query=${this.query}&api_key=${this.apiKey}&page=${this.page}`)
-            .then(({ data: { results } }) => results)
+        return axios(`https://api.themoviedb.org/3/search/movie?query=${this.query}&api_key=${this.apiKey}&page=${this.page}`)
+        .then(({ data }) =>  data)
         .catch((err) => console.log(err));
     },
     
     fetchPopularMovies() {
-        return axios(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this.apiKey}`)
+        return axios(`https://api.themoviedb.org/3/trending/movie/day?api_key=${this.apiKey}&page=${this.page}`)
         .then(({ data }) => data)
         .catch((err) => console.log(err));
 },
