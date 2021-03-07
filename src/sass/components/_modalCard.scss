@@ -71,7 +71,7 @@
 
 .modal__key {
   display: flex;
-  width: 69px;
+  min-width: 69px;
   margin: 0;
 
   @include for-size(desktop-only) {
@@ -89,6 +89,7 @@
 
 .modal__value {
   display: flex;
+  flex-wrap: wrap;
   margin: 0;
   color: $dark-text-color;
   @include font(500, 12px, 1.17);
