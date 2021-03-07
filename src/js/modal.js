@@ -5,7 +5,6 @@ import { getId } from './addLocalStrg';
 
 const { modal, closeModal, overlay, galleryRef } = refs;
 
-document.addEventListener('keydown', closeModalESC);
 galleryRef.addEventListener('click', getCardMove);
 overlay.addEventListener('click', closeModalOUT);
 
@@ -16,6 +15,7 @@ function toggleModal() {
 function closeModalESC(event) {
   if (event.code === 'Escape') {
     toggleModal();
+    document.removeEventListener('keydown', closeModalESC);
   }
 }
 
@@ -46,6 +46,8 @@ function getCardMove(event) {
       const closeModal = document.querySelector('[data-close]');
       closeModal.addEventListener('click', toggleModal);
       getId();
+
+      document.addEventListener('keydown', closeModalESC);
     });
 }
 
