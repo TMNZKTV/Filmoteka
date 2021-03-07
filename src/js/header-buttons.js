@@ -10,9 +10,13 @@ libraryButton.addEventListener('click', toggleLibraryButtonsON);
 
 function toggleLibraryButtonsON() {
   libraryButtons.classList.remove('is-hidden');
+  libraryButton.classList.add('current');
   searchForm.classList.add('is-hidden');
+  homeButton.classList.remove('current');
 }
 function toggleLibraryButtonsOFF() {
   libraryButtons.classList.add('is-hidden');
+  libraryButton.classList.remove('current');
   searchForm.classList.remove('is-hidden');
+  homeButton.classList.add('current');
 }

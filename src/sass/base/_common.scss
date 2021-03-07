@@ -22,11 +22,28 @@ a {
   text-decoration: none;
 }
 
+li {
+  list-style: none;
+}
+.is-hidden {
+  display: none;
+}
+
 .container {
-  width: 100%;
   margin-left: auto;
   margin-right: auto;
   padding-left: 20px;
   padding-right: 20px;
   text-align: center;
+
+  @mixin for-size($mobile) {
+    width: 462px;
+  }
+  @mixin for-size($tablet) {
+    width: 750px;
+  }
+
+  @mixin for-size($desktop) {
+    width: 1182px;
+  }
 }

@@ -7,7 +7,7 @@
   @media screen and (min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-home-mobile.jpg');
+    background-image: url('../img/header-home-mobile@2x.jpg');
   }
   @media screen and (min-width: 768px) {
     background-image: url('../img/header-home-tablet.jpg');
@@ -27,19 +27,39 @@
   }
 }
 
+// NAVIGATION //
 .navigation {
   padding-top: 58px;
   display: flex;
   flex-wrap: wrap;
   justify-content: baseline;
 }
-
+.navigation__logo--mobile {
+  width: 20px;
+  height: 20px;
+  display: none;
+  @media screen and(max-width: 767px) {
+    display: flex;
+  }
+}
 .navigation__logo {
-  display: flex;
+  display: none;
+  font-family: $primary-font;
+  font-size: 30px;
+  font-weight: $medium;
+  color: $light-text-color;
+  line-height: 1.2;
   flex-direction: row;
   align-items: center;
   justify-content: center;
-  align-items: center;
+
+  @media screen and (min-width: 768px) {
+    display: flex;
+  }
+
+  @media screen and (min-width: 1024) {
+    display: flex;
+  }
 }
 .navigation__logo--icon {
   margin-right: 12px;
@@ -47,27 +67,100 @@
   width: 20px;
 }
 
+// HOME AND LIBRARY BUTTONS //
 .menu__container {
   display: flex;
   margin-left: auto;
 }
-
 .menu__list {
   display: flex;
   margin: 0;
 }
-
 .menu__item:not(:last-child) {
   margin-right: 39px;
 }
+.menu__item > button {
+  font-family: $primary-font;
+  font-weight: $medium;
+  font-size: 12px;
+  line-height: 1.2;
+  color: $light-text-color;
 
+  background-color: transparent;
+  background-repeat: no-repeat;
+  border: none;
+  overflow: hidden;
+  outline: none;
+  padding: 0;
+}
+.menu__item > button.current {
+  position: relative;
+  padding-bottom: 2px;
+
+  &::after {
+    position: absolute;
+    content: '';
+    width: 100%;
+    height: 3px;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ff6b08;
+  }
+}
+
+// INPUT AND LIBRARY BUTTONS //
 .input-buttons__container {
   margin-top: 58px;
-  padding-bottom: 65px;
+  padding-bottom: 97px;
   display: flex;
   justify-content: center;
 }
+.input__field {
+  background: transparent;
+  border: none;
+  border-bottom: 0.5px solid $light-text-color;
+  padding: 0;
+  outline: none;
+  color: $light-text-color;
 
-.library__buttons--item:not(:last-child) {
-  margin-right: 15px;
+  @media screen and (max-width: 767px) {
+    width: 280px;
+  }
+  @media screen and (min-width: 768px) {
+    width: 336px;
+  }
+  &::placeholder {
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: $normal;
+    color: $light-text-color;
+    line-height: 1.2;
+  }
+}
+.library__buttons--list {
+  display: flex;
+}
+.library__buttons--item {
+  padding: 0;
+  &:not(:last-child) {
+    margin-right: 15px;
+  }
+  &:hover,
+  &:focus {
+    background-color: #ff6b01;
+  }
+  & > button {
+    background: transparent;
+    padding: 14px 38px 12px;
+    font-family: $primary-font;
+    font-size: 14px;
+    font-weight: $medium;
+    color: $light-text-color;
+    line-height: 1.2;
+    border: 1px solid white;
+    border-radius: 5px;
+    overflow: hidden;
+    outline: none;
+  }
 }
