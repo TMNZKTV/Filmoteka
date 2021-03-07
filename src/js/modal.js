@@ -20,6 +20,10 @@ function getCardMove(event) {
   event.preventDefault();
 
   const currentFilm = event.target;
+
+  if (currentFilm.nodeName !== 'IMG') {
+    return;
+  }
   modal.innerHTML = '';
 
   const filmID = currentFilm.dataset.id;

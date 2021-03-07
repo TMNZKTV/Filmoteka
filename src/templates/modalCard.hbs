@@ -21,7 +21,8 @@
     </ul>
     <h2 class="modal__about">ABOUT</h2>
     <p class="modal__text">{{this.overview}}</p>
-    <button class="button">add to Watched</button>
-    <button class="button">add to queue</button>
+    <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-watched">add to
+        Watched</button>
+    <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-queue">add to queue</button>
 </div>
 {{/each}}

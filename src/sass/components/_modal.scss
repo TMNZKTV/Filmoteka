@@ -32,8 +32,19 @@
     transform: translate(-50%, -50%) scale(0);
   }
 
-  width: 882px;
-  height: 568px;
+  @include for-size(mobile) {
+    width: 280px;
+    height: 958px;
+  }
+  @include for-size(tablet) {
+    width: 618px;
+    height: 562px;
+  }
+
+  @include for-size(desktop) {
+    width: 882px;
+    height: 568px;
+  }
 
   background-color: $light-text-color;
   transition: transform $cubic;
