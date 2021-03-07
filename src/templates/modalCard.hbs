@@ -8,7 +8,7 @@
     <ul class="modal__keys">
         <li class="modal__keyItem">
             <p class="modal__key">Vote / Votes</p>
-            <p class="modal__value"><span class="rating">{{this.vote_average}}</span> / {{this.vote_count}}</p>
+            <p class="modal__value"><span class="rating">{{this.vote_average}} </span> / {{this.vote_count}}</p>
         </li>
         <li class="modal__keyItem">
             <p class="modal__key">Popularity</p>
@@ -20,7 +20,9 @@
         </li>
         <li class="modal__keyItem">
             <p class="modal__key">Genre</p>
-            {{#each genres}}<p class="modal__value genre">{{this.name}}</p>{{/each}}
+            <ul class="modal__value genre">
+                {{#each genres}}<li class="item-genre">{{this.name}}</li>{{/each}}
+            </ul>
         </li>
     </ul>
     <h2 class="modal__about">ABOUT</h2>

@@ -31,13 +31,19 @@
 .modal__img {
   display: block;
   width: 100%;
-  min-height: 477px;
   object-fit: cover;
 
-  @include for-size(tablet) {
-    min-height: 377px;
-    object-fit: cover;
+  @include for-size(tablet-only) {
+    height: auto;
+    object-fit: contain;
   }
+
+  // @include for-size(tablet) {
+  //   object-fit: cover;
+  // }
+  // @include for-size(desktop) {
+  //   min-height: 477px;
+  // }
 }
 
 .modal__title {
@@ -89,6 +95,7 @@
 }
 
 .modal__value {
+  display: flex;
   margin: 0;
   color: $dark-text-color;
   @include font(500, 12px, 1.17);
@@ -96,15 +103,16 @@
 
 .genre {
   display: flex;
-  flex-wrap: wrap;
   margin-right: 4px;
+  flex-direction: column;
   &:last-child {
     margin-right: 0;
   }
 }
 
 .rating {
-  display: inline-block;
+  display: flex;
+  justify-content: center;
   margin: 0 auto;
   min-width: 36px;
   border-radius: 5px;
@@ -121,6 +129,7 @@
   @extend %button;
   display: flex;
   @include for-size(tablet-only) {
+    align-items: center;
     width: 112px;
   }
 
