@@ -15,20 +15,30 @@
     <header class="page__header">
       <div class="container">
         <nav class="navigation">
-          <a href="./index.html" class="navigation__logo"
-            ><svg src="" class="navigation__logo--icon" width="20" height="20">
+          <a href="./index.html" class="navigation__logo">
+            <svg src="" class="navigation__logo--icon" width="20" height="20">
               <use
                 class="icon-logo"
                 href="./img/symbol-defs.svg#icon-logo"
               ></use>
             </svg>
-            Filmoteka</a
-          >
+            Filmoteka
+          </a>
+          <a href="./index.html" class="navigation__logo--mobile">
+            <svg src="" class="navigation__logo--mobile" width="20" height="20">
+              <use
+                class="icon__logo--mobile"
+                href="./img/symbol-defs.svg#icon-logo"
+              ></use>
+            </svg>
+          </a>
 
           <div class="menu__container">
             <ul class="menu__list">
               <li class="menu__item">
-                <button type="button" data-action="home">HOME</button>
+                <button type="button" class="current" data-action="home">
+                  HOME
+                </button>
               </li>
               <li class="menu__item">
                 <button type="button" data-action="library">MY LIBRARY</button>
@@ -53,10 +63,14 @@
           </div>
 
           <div class="library__buttons is-hidden">
-            <button type="button" class="library__buttons--item">
-              WATCHED
-            </button>
-            <button type="button" class="library__buttons--item">QUEUE</button>
+            <ul class="library__buttons--list">
+              <li class="library__buttons--item">
+                <button type="button">WATCHED</button>
+              </li>
+              <li class="library__buttons--item">
+                <button type="button">QUEUE</button>
+              </li>
+            </ul>
           </div>
         </div>
       </div>
