@@ -17,7 +17,15 @@ function initialFetch() {
   apiService.fetchPopularMovies().then(({ results }) => {
     getMarkupGallery(results);
   })
-  
+}
+
+function fetchByKeyWords() {
+  apiService.fetchMovies().then(({ results }) => {
+    getMarkupGallery(results);
+    if (results.length === 0) {
+      notifyInfo('Try another word', 'No images found for this request');
+    }
+  });
 }
 
 function onInputSearch(event) {
@@ -32,56 +40,53 @@ function onInputSearch(event) {
       const item = `<li class="pagination__item">${i}</li>`;
       itemList.push(item);
     }
-    console.log(itemList.join(' '));
+    // console.log(itemList.join(' '));
 
-  //   if (itemList.length > 9) {
-  //     itemToShow = ...itemList.slice( );
-  // itemList = [`<li class="pagination__item">1</li>, <li class="pagination__item">...</li>,  ,<li class="pagination__item">...</li> ,<li class="pagination__item">${total_pages}</li>`];
-  //   }
+    //   if (itemList.length > 9) {
+    //     itemToShow = ...itemList.slice( );
+    // itemList = [`<li class="pagination__item">1</li>, <li class="pagination__item">...</li>,  ,<li class="pagination__item">...</li> ,<li class="pagination__item">${total_pages}</li>`];
+    //   }
     // const paginationMarkup =
     //   `<li class="pagination__item">1</li>
     //   <li class="pagination__item"></li>
     //   <li class="pagination__item pagination__current-page">${page}</li>
     //   <li class="pagination__item">${total_pages}</li>`;
-    
+  
     // refs.paginationList.insertAdjacentHTML('beforeend', itemList.join(' '));
-    
+  
     if (results.length === 0) {
       notifyInfo('Try another word', 'No images found for this request');
     }
   });
-  
+
   if (apiService.query === '') {
     apiService.resetPage();
     cleanMarkup();
     initialFetch();
-  } 
+  }
 }
 
 function onNextPage() {
   apiService.page += 1;
   cleanMarkup();
-
-  apiService.fetchMovies().then(({results, page, total_pages}) => { 
-    getMarkupGallery(results);
-    if (results.length === 0) {
-      notifyInfo('Try another word', 'No images found for this request');
-    }
-  });
+  // console.dir(refs.inputSearch.value)
+  makePopularOrKeyWordFetch()
 }
+
 
 function onPrevPage() {
   apiService.page -= 1;
   cleanMarkup();
+  makePopularOrKeyWordFetch()
+};
 
-  apiService.fetchMovies().then(({results, page, total_pages}) => { 
-    getMarkupGallery(results);
-    if (results.length === 0) {
-      notifyInfo('Try another word', 'No images found for this request');
-    }
-  });
+function makePopularOrKeyWordFetch() {
+ if (refs.inputSearch.value === '') {
+    initialFetch();
+  } else {
+    fetchByKeyWords();
+  }
 }
-
 function cleanMarkup() {
-  refs.galleryRef.innerHTML = ''
+  refs.galleryRef.innerHTML = '';
 };
