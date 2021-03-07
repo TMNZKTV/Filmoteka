@@ -14,16 +14,41 @@ function getId() {
 
 function addWatchedLS(event) {
   const currentId = event.target.dataset.id;
-  event.target.disabled = true;
-  idWatched.push(currentId);
-  localStorage.setItem('addWatchedFilm', JSON.stringify(idWatched));
+  console.log(event.target.dataset.check);
+  if (event.target.dataset.check !== 'true') {
+    changeStyleCurrent(event.target);
+    event.target.dataset.check = 'true';
+    idWatched.push(currentId);
+    localStorage.setItem('addWatchedFilm', JSON.stringify(idWatched));
+  } else {
+    changeStyleNormal(event.target);
+    event.target.dataset.check = 'false';
+    idWatched.forEach((id, i) => {
+      if (id === currentId) {
+        idWatched.splice(i, 1);
+      }
+    });
+    localStorage.setItem('addWatchedFilm', JSON.stringify(idWatched));
+  }
 }
 
 function addQueueLS(event) {
   const currentId = event.target.dataset.id;
-  event.target.disabled = true;
-  idQueue.push(currentId);
-  localStorage.setItem('addQueueFilm', JSON.stringify(idQueue));
+  if (event.target.dataset.check !== 'true') {
+    changeStyleCurrent(event.target);
+    event.target.dataset.check = 'true';
+    idQueue.push(currentId);
+    localStorage.setItem('addQueueFilm', JSON.stringify(idQueue));
+  } else {
+    changeStyleNormal(event.target);
+    event.target.dataset.check = 'false';
+    idQueue.forEach((id, i) => {
+      if (id === currentId) {
+        idQueue.splice(i, 1);
+      }
+    });
+    localStorage.setItem('addQueueFilm', JSON.stringify(idQueue));
+  }
 }
 
 const watched = JSON.parse(localStorage.getItem('addWatchedFilm'));
@@ -44,21 +69,29 @@ function addCurrentStatus(btnAddWatched, btnAddQueue) {
 
   idWatched.forEach(id => {
     if (id === btnAddWatched.dataset.id) {
-      changeStyle(btnAddWatched);
+      changeStyleCurrent(btnAddWatched);
+      btnAddWatched.dataset.check = 'true';
     }
   });
 
   idQueue.forEach(id => {
     if (id === btnAddQueue.dataset.id) {
-      changeStyle(btnAddQueue);
+      changeStyleCurrent(btnAddQueue);
+      btnAddQueue.dataset.check = 'true';
     }
   });
 }
 
-function changeStyle(btn) {
+function changeStyleCurrent(btn) {
   btn.style.backgroundColor = '#ff6b08';
   btn.style.color = '#ffffff';
   btn.style.border = 'none';
+}
+
+function changeStyleNormal(btn) {
+  btn.style.backgroundColor = '#ffffff';
+  btn.style.color = '#000000';
+  btn.style.border = '1px solid black';
 }
 
 export {
