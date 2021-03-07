@@ -4,3 +4,4 @@ import './js/modal.js';
 // import './templating/gallery';
 import './js/fetchService.js';
 import './js/header-buttons';
+import './js/addLocalStrg';

@@ -1,22 +1,22 @@
 import refs from './refs';
+import { markupLibrery } from './librery';
 
-const homeButton = document.querySelector('[data-action="home"]');
-const libraryButton = document.querySelector('[data-action="library"]');
-const libraryButtons = document.querySelector('.library__buttons');
-const searchForm = document.querySelector('.input__field');
+const { homeButton, libraryButton, libraryButtons, searchForm } = refs;
 
 homeButton.addEventListener('click', toggleLibraryButtonsOFF);
 libraryButton.addEventListener('click', toggleLibraryButtonsON);
 
-function toggleLibraryButtonsON() {
+function toggleLibraryButtonsON(event) {
   libraryButtons.classList.remove('is-hidden');
   libraryButton.classList.add('current');
   searchForm.classList.add('is-hidden');
   homeButton.classList.remove('current');
+  markupLibrery(event);
 }
-function toggleLibraryButtonsOFF() {
+function toggleLibraryButtonsOFF(event) {
   libraryButtons.classList.add('is-hidden');
   libraryButton.classList.remove('current');
   searchForm.classList.remove('is-hidden');
   homeButton.classList.add('current');
+  markupLibrery(event);
 }
