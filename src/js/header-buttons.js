@@ -1,5 +1,5 @@
 import refs from './refs';
-import { markupLibrery } from './librery';
+import { markupLibrery, markupHome } from './librery';
 
 const { homeButton, libraryButton, libraryButtons, searchForm } = refs;
 
@@ -18,5 +18,5 @@ function toggleLibraryButtonsOFF(event) {
   libraryButton.classList.remove('current');
   searchForm.classList.remove('is-hidden');
   homeButton.classList.add('current');
-  markupLibrery(event);
+  markupHome(event);
 }

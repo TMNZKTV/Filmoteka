@@ -44,15 +44,29 @@ function addCurrentStatus(btnAddWatched, btnAddQueue) {
 
   idWatched.forEach(id => {
     if (id === btnAddWatched.dataset.id) {
-      btnAddWatched.disabled = true;
+      changeStyle(btnAddWatched);
     }
   });
 
   idQueue.forEach(id => {
     if (id === btnAddQueue.dataset.id) {
-      btnAddQueue.disabled = true;
+      changeStyle(btnAddQueue);
     }
   });
 }
 
-export { getId, addCurrentStatus, ifNotEmptyLS, idWatched, idQueue, watched, queue };
+function changeStyle(btn) {
+  btn.style.backgroundColor = '#ff6b08';
+  btn.style.color = '#ffffff';
+  btn.style.border = 'none';
+}
+
+export {
+  getId,
+  addCurrentStatus,
+  ifNotEmptyLS,
+  idWatched,
+  idQueue,
+  watched,
+  queue,
+};
