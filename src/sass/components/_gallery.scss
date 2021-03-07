@@ -8,6 +8,7 @@
   width: calc((100% - 30px * 2) / 3);
   height: 440;
   margin-right: 30px;
+  cursor: pointer;
 
   &:nth-child(3n) {
     margin-right: 0;

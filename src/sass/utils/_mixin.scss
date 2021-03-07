@@ -36,16 +36,9 @@
   align-items: $ai;
 }
 
-@mixin font(
-  $weight,
-  $size,
-  $line-height,
-  $font-family: $primary-font,
-  $letter-spacing: $primary-let-spacing
-) {
+@mixin font($weight, $size, $line-height, $font-family: $primary-font) {
   font-weight: $weight;
   font-size: $size;
   line-height: $line-height;
   font-family: $font-family;
-  letter-spacing: $letter-spacing;
 }
