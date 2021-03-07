@@ -1,0 +1,19 @@
+<div class="pagination js-pagination">
+    <button class="pagination__arrow-left" type="button">
+        <svg class="arrow-icon">
+            <use href="./img/symbol-defs.svg#icon-arrow-left"></use>
+        </svg>
+    </button>
+    <ul class="pagination__list">
+        {{#with this }}
+        <li class="pagination__item">{{page}}</li>
+
+        <li class="pagination__item">{{total_pages}}</li>
+        {{/with}}
+    </ul>
+    <button class="pagination__arrow-right" type="button">
+        <svg class="arrow-icon">
+            <use href="./img/symbol-defs.svg#icon-arrow-right"></use>
+        </svg>
+    </button>
+</div>
