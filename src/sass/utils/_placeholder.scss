@@ -12,13 +12,14 @@
   font-family: 'Roboto';
   font-weight: 500;
   font-size: 12px;
-  line-height: 16px;
+  line-height: 1.33;
   justify-content: center;
 
   &:hover {
     background-color: $accent-color;
     color: $light-text-color;
     border: none;
+    cursor: pointer;
   }
 
   transition: background-color $cubic;

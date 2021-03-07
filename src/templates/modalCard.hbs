@@ -6,23 +6,30 @@
 <div class="description">
     <h1 class="modal__title">{{this.original_title}}</h1>
     <ul class="modal__keys">
-        <li class="modal__key">Vote / Votes
+        <li class="modal__keyItem">
+            <p class="modal__key">Vote / Votes</p>
             <p class="modal__value"><span class="rating">{{this.vote_average}}</span> / {{this.vote_count}}</p>
         </li>
-        <li class="modal__key">Popularity
+        <li class="modal__keyItem">
+            <p class="modal__key">Popularity</p>
             <p class="modal__value">{{this.popularity}}</p>
         </li>
-        <li class="modal__key">Original Title
+        <li class="modal__keyItem">
+            <p class="modal__key">Original Title</p>
             <p class="modal__value">{{this.original_title}}</p>
         </li>
-        <li class="modal__key">Genre
-            <p class="modal__value">{{this.popularity}}</p>
+        <li class="modal__keyItem">
+            <p class="modal__key">Genre</p>
+            {{#each genres}}<p class="modal__value genre">{{this.name}}</p>{{/each}}
         </li>
     </ul>
     <h2 class="modal__about">ABOUT</h2>
     <p class="modal__text">{{this.overview}}</p>
-    <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-watched">add to
-        Watched</button>
-    <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-queue">add to queue</button>
+    <div class="modal__button">
+        <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-watched">add to
+            Watched</button>
+        <button class="button is-hidden" type="button" data-id="{{this.id}}" data-action="add-queue">add to
+            queue</button>
+    </div>
 </div>
 {{/each}}
