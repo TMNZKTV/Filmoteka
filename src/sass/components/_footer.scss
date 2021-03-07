@@ -4,5 +4,23 @@
     
 }
 
+.footer-container {
+    padding-top: 29px;
+    padding-bottom: 29px;
+ 
+    @include for-size(tablet) {
+        display: flex;
+        justify-content: center
+       
+      }
+      @include for-size(desktop) {
+        display: flex;
+        justify-content: center;
+      }
+    
+}
 
-
+.favorite {
+    width: 14px;
+    height: 12.75px;
+}
