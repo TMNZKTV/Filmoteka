@@ -1,6 +1,8 @@
 import refs from './refs';
 import getMarkupModal from './modal-markup';
 import apiService from './apiService';
+import { getId } from './addLocalStrg';
+
 const { modal, closeModal, overlay, galleryRef } = refs;
 
 document.addEventListener('keydown', closeModalESC);
@@ -36,5 +38,8 @@ function getCardMove(event) {
     .then(() => {
       const closeModal = document.querySelector('[data-close]');
       closeModal.addEventListener('click', toggleModal);
+      getId();
     });
 }
+
+export { getCardMove, toggleModal };
