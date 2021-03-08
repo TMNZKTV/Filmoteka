@@ -13,7 +13,7 @@ const refs = {
   toPrevPageBtn: document.querySelector('.js-pagination .pagination__arrow-left'),
   toNextPageBtn: document.querySelector('.js-pagination .pagination__arrow-right'),
   paginationList: document.querySelector('.js-pagination .pagination__list'),
-
+  headerBack: document.querySelector('.page__header'),
 };
 
 export default refs;
