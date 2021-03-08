@@ -13,7 +13,9 @@ const refs = {
   toPrevPageBtn: document.querySelector('.js-pagination .pagination__arrow-left'),
   toNextPageBtn: document.querySelector('.js-pagination .pagination__arrow-right'),
   paginationList: document.querySelector('.js-pagination .pagination__list'),
-  // paginationItem: document.querySelector('.js-pagination .pagination__item'),
+  homePagination: document.querySelector('.js-pagination'),
+  libraryPaginationList: document.querySelector('.library-pagination__list'),
+  libraryPagination: document.querySelector('.library-pagination'),
 };
 
 export default refs;
