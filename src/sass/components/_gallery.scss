@@ -1,18 +1,18 @@
 .gallery {
   display: flex;
   flex-wrap: wrap;
+  max-width: 1100px;
   padding-top: 60px;
+  margin: -30px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .film-card {
-  width: calc((100% - 30px * 2) / 3);
+  width: calc((100% - 30px * 8) / 4);
   height: 440;
-  margin-right: 30px;
+  margin: 30px;
   cursor: pointer;
-
-  &:nth-child(3n) {
-    margin-right: 0;
-  }
 }
 
 .film-img {
@@ -20,4 +20,21 @@
   width: 100%;
   height: auto;
   object-fit: cover;
+}
+
+.img-wrapper {
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.film-title {
+  @include font(500, 12px, 1.17);
+  text-transform: uppercase;
+  color: $dark-text-color;
+}
+
+.film-text.genre {
+  @include font(500, 12px, 1.33);
+  color: $accent-color;
 }

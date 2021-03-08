@@ -2,6 +2,9 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  &.is-hidden {
+    display: none;
+  }
 
   &__arrow-left,
   &__arrow-right {
@@ -14,7 +17,7 @@
     border: none;
     background-color: #f7f7f7;
   }
-  &__.arrow-icon {
+  &__arrow-icon {
     width: 16px;
     height: 16px;
   }
@@ -25,14 +28,68 @@
     align-items: center;
   }
 
-  &__item {
+  &__item button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40px;
     height: 40px;
+    border: none;
+    color: $dark-text-color;
+    background-color: #ffffff;
+    @include font(500, 12px, 1.33);
+    cursor: pointer;
   }
-  &__current-page {
+  &__item.--current button {
     background-color: $accent-color;
+    color: $light-text-color;
+  }
+}
+
+.library-pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  &.is-hidden {
+    display: none;
+  }
+
+  &__arrow-left,
+  &__arrow-right {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border-radius: 5px;
+    border: none;
+    background-color: #f7f7f7;
+  }
+  &__arrow-icon {
+    width: 16px;
+    height: 16px;
+  }
+  &__list {
+    list-style: none;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  &__item button {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40px;
+    height: 40px;
+    border: none;
+    color: $dark-text-color;
+    background-color: #ffffff;
+    @include font(500, 12px, 1.33);
+    cursor: pointer;
+  }
+  &__item.--current button {
+    background-color: $accent-color;
+    color: $light-text-color;
   }
 }

@@ -14,6 +14,7 @@ function toggleLibraryButtonsON(event) {
   headerBack.classList.add('library');
   headerBack.classList.remove('home');
   markupLibrery(event);
+  refs.homePagination.classList.add('is-hidden');
 }
 function toggleLibraryButtonsOFF(event) {
   libraryButtons.classList.add('is-hidden');
@@ -23,4 +24,6 @@ function toggleLibraryButtonsOFF(event) {
   headerBack.classList.add('home');
   headerBack.classList.remove('library');
   markupHome(event);
+  refs.homePagination.classList.remove('is-hidden');
+  refs.libraryPagination.classList.add('is-hidden');
 }

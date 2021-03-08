@@ -25,8 +25,18 @@ function markupLibrery(event) {
   event.preventDefault();
   inputSearch.textContent = '';
   galleryRef.innerHTML = '';
-  showLibrery();
-  showWatched();
+  ifNotEmptyLS();
+  if (watched !== null) {
+    console.log(watched);
+    if (watched !== []) {
+      console.log(watched);
+      showWatched();
+      showLibrery();
+    }
+  } else {
+    console.log(watched);
+    galleryRef.innerHTML = '<li>Вы ничего не добавили!</li>';
+  }
 }
 
 function markupHome(event) {
@@ -45,18 +55,33 @@ function showLibrery() {
 
 function showWatched() {
   changeColorBtn(btnWatched, btnQueue);
+
+  galleryRef.innerHTML = '';
   idWatched.forEach(id => {
-    galleryRef.innerHTML = '';
     apiService.fetchID(id).then(array => getMarkupGallery([array]));
   });
+  const watchedFilms = JSON.parse(localStorage.getItem('addWatchedFilm'));
+  refs.libraryPagination.classList.add('is-hidden');
+  if (watchedFilms.length > 19) {
+  refs.libraryPagination.classList.remove('is-hidden');
+}
 }
 
 function showQueue() {
   changeColorBtn(btnQueue, btnWatched);
-  idQueue.forEach(id => {
+  if (watched !== null) {
     galleryRef.innerHTML = '';
-    apiService.fetchID(id).then(array => getMarkupGallery([array]));
-  });
+    idQueue.forEach(id => {
+      apiService.fetchID(id).then(array => getMarkupGallery([array]));
+    });
+  } else {
+    galleryRef.innerHTML = '<li>Вы ничего не добавили!</li>';
+  }
+  const queueFilms = JSON.parse(localStorage.getItem('addQueueFilm'));
+  refs.libraryPagination.classList.add('is-hidden');
+  if (queueFilms.length > 19) {
+  refs.libraryPagination.classList.remove('is-hidden');
+}
 }
 
 function changeColorBtn(add, remove) {
@@ -66,4 +91,5 @@ function changeColorBtn(add, remove) {
   remove.style.borderColor = '#ffffff';
 }
 
-export { markupLibrery, markupHome };
+export { markupLibrery, markupHome, showWatched, showQueue };
+
