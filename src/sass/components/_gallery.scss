@@ -21,3 +21,20 @@
   height: auto;
   object-fit: cover;
 }
+
+.img-wrapper {
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.film-title {
+  @include font(500, 12px, 1.17);
+  text-transform: uppercase;
+  color: $dark-text-color;
+}
+
+.film-text.genre {
+  @include font(500, 12px, 1.33);
+  color: $accent-color;
+}
