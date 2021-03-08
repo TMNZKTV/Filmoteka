@@ -18,7 +18,7 @@ function initialFetch() {
   cleanPagesMarkup(); 
   let itemList = [];
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results);
+    getMarkupGallery(results, refs.galleryRef);
     if (total_pages - page < 7) {
       for (let i = total_pages - 1; i > total_pages - 7; i -= 1) {
         const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
@@ -41,7 +41,7 @@ function fetchByKeyWords() {
   let itemList = [];
   
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results);
+    getMarkupGallery(results, refs.galleryRef);
     if (results.length === 0) {
       notifyInfo('Try another word', 'No images found for this request');
     }

@@ -3,9 +3,9 @@ import refs from './refs';
 
 const { galleryRef } = refs;
 
-function getMarkupGallery(requestedMovies) {
+function getMarkupGallery(requestedMovies, element) {
   const markup = itemsTemplate(requestedMovies);
-  galleryRef.insertAdjacentHTML('beforeend', markup);
+  element.insertAdjacentHTML('beforeend', markup);
 }
 
 export default getMarkupGallery;

@@ -1,12 +1,19 @@
-import refs from './refs';
-import { markupLibrery, markupHome, showWatched, showQueue } from './librery';
+import { showWatched, showQueue } from './showLibrery';
 import { toggleModal } from './modal';
-import getMarkupGallery from './gallery-markup.js';
-import apiService from './apiService';
+import {
+  addCurrentStatus,
+  changeStyleCurrent,
+  changeStyleNormal,
+} from './styleForBtnAdd';
+import {
+  ifNotEmptyWatched,
+  ifNotEmptyQueue,
+  idWatched,
+  idQueue,
+} from './checkNotEmptyLS';
 
-const { galleryRef, overlay } = refs;
-let idWatched = [];
-let idQueue = [];
+ifNotEmptyWatched();
+ifNotEmptyQueue();
 
 function getId() {
   const btnAddWatched = document.querySelector('[data-action="add-watched"]');
@@ -59,55 +66,4 @@ function addQueueLS(event) {
   }
 }
 
-const watched = JSON.parse(localStorage.getItem('addWatchedFilm'));
-const queue = JSON.parse(localStorage.getItem('addQueueFilm'));
-
-function ifNotEmptyLS() {
-  if (watched !== null) {
-    idWatched = watched;
-  }
-
-  if (queue !== null) {
-    idQueue = queue;
-  }
-}
-
-function addCurrentStatus(btnAddWatched, btnAddQueue) {
-  ifNotEmptyLS();
-
-  idWatched.forEach(id => {
-    if (id === btnAddWatched.dataset.id) {
-      changeStyleCurrent(btnAddWatched);
-      btnAddWatched.dataset.check = 'true';
-    }
-  });
-
-  idQueue.forEach(id => {
-    if (id === btnAddQueue.dataset.id) {
-      changeStyleCurrent(btnAddQueue);
-      btnAddQueue.dataset.check = 'true';
-    }
-  });
-}
-
-function changeStyleCurrent(btn) {
-  btn.style.backgroundColor = '#ff6b08';
-  btn.style.color = '#ffffff';
-  btn.style.border = 'none';
-}
-
-function changeStyleNormal(btn) {
-  btn.style.backgroundColor = '#ffffff';
-  btn.style.color = '#000000';
-  btn.style.border = '1px solid black';
-}
-
-export {
-  getId,
-  addCurrentStatus,
-  ifNotEmptyLS,
-  idWatched,
-  idQueue,
-  watched,
-  queue,
-};
+export { getId, idWatched, idQueue };

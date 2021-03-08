@@ -3,8 +3,8 @@ import getMarkupModal from './modal-markup';
 import apiService from './apiService';
 import { getId } from './addLocalStrg';
 
-const { modal, closeModal, overlay, galleryRef } = refs;
-
+const { modal, closeModal, overlay, galleryRef, galleryLibrery } = refs;
+galleryLibrery.addEventListener('click', getCardMove);
 galleryRef.addEventListener('click', getCardMove);
 overlay.addEventListener('click', closeModalOUT);
 
