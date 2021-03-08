@@ -1,7 +1,7 @@
 import refs from './refs';
 import { markupLibrery, markupHome } from './librery';
 
-const { homeButton, libraryButton, libraryButtons, searchForm } = refs;
+const { homeButton, libraryButton, libraryButtons, searchForm, headerBack} = refs;
 
 homeButton.addEventListener('click', toggleLibraryButtonsOFF);
 libraryButton.addEventListener('click', toggleLibraryButtonsON);
@@ -11,6 +11,8 @@ function toggleLibraryButtonsON(event) {
   libraryButton.classList.add('current');
   searchForm.classList.add('is-hidden');
   homeButton.classList.remove('current');
+  headerBack.classList.add('library');
+  headerBack.classList.remove('home');
   markupLibrery(event);
 }
 function toggleLibraryButtonsOFF(event) {
@@ -18,5 +20,7 @@ function toggleLibraryButtonsOFF(event) {
   libraryButton.classList.remove('current');
   searchForm.classList.remove('is-hidden');
   homeButton.classList.add('current');
+  headerBack.classList.add('home');
+  headerBack.classList.remove('library');
   markupHome(event);
 }
