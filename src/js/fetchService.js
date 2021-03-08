@@ -59,6 +59,7 @@ function fetchByKeyWords() {
   cleanPagesMarkup(); 
   
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
+
     getMarkupGallery(results);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
