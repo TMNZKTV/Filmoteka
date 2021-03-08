@@ -1,7 +1,6 @@
 import refs from '../js/refs';
 import apiService from './apiService.js';
 import getMarkupGallery from './gallery-markup.js'
-import getPaginationMarkup from './gallery-markup.js'
 // libraries
 import debounce from "lodash.debounce";
 import { notifyInfo } from './notifications.js'
@@ -16,7 +15,7 @@ refs.paginationList.addEventListener('click', onPageClick);
 function initialFetch() {
   cleanMarkup();
   cleanPagesMarkup(); 
-
+  refs.homePagination.classList.remove('is-hidden');
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
     getMarkupGallery(results, refs.galleryRef);
     apiService.page = page;
@@ -64,7 +63,7 @@ function fetchByKeyWords() {
     apiService.setMaxPage(total_pages);
 
     if (results.length === 0) {
-      notifyInfo('Try another word', 'No images found for this request');
+      notifyInfo('Try another word', 'No movies found for this request');
     }
     
     let listToShow = '';
@@ -141,7 +140,7 @@ function onPageClick(event) {
 
 function onNextPage() {
   if (apiService.page === apiService.maxPage) {
-    notifyInfo('There are no more films by this request!')
+    notifyInfo('There are no more movies by this request!')
     return;
   }
   apiService.page += 1;
