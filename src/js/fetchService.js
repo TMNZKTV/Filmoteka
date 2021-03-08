@@ -18,7 +18,7 @@ function initialFetch() {
   cleanPagesMarkup(); 
 
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results);
+    getMarkupGallery(results, refs.galleryRef);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
     let listToShow = '';
@@ -59,8 +59,7 @@ function fetchByKeyWords() {
   cleanPagesMarkup(); 
   
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
-
-    getMarkupGallery(results);
+    getMarkupGallery(results, refs.galleryRef);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
 
@@ -70,11 +69,16 @@ function fetchByKeyWords() {
     
     let listToShow = '';
     function numberMarkup() {
+      if (total_pages <= 1) {
+        refs.homePagination.classList.add('is-hidden');
+        return;
+      } 
+      refs.homePagination.classList.remove('is-hidden');
       let listItems = [];
       const hiddenPrevPages = '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
       const hiddenNextPages = '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
       if (total_pages - page < 6) {
-        for (let i = total_pages; i > total_pages - 6; i -= 1) {
+        for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
           const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
           listItems.unshift(item);
         } 
@@ -84,21 +88,21 @@ function fetchByKeyWords() {
         listItems.push(item);
       }}
       
-      listToShow = listItems.join(' ') + `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+      listToShow = listItems.join(' ');
       if (total_pages > 6) {
         listToShow = listItems.join(' ') + hiddenNextPages + `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
       }
-      if (page > 2) {
+      if (page > 2 && total_pages > 6) {
         listToShow = `<li class="pagination__item"><button type="button">1</button></li>` + hiddenPrevPages + listItems.join(' ') + hiddenNextPages + `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
       }
       if (total_pages > 6 && page > total_pages - 6 ) {
         listToShow = `<li class="pagination__item"><button type="button">1</button></li>` + hiddenPrevPages + listItems.join(' ');
       }
     }
-    numberMarkup();
-    refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
     
-    highlightCurrentPage();
+      numberMarkup();
+      refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
+      highlightCurrentPage();
   });
 }
 
@@ -137,6 +141,7 @@ function onPageClick(event) {
 
 function onNextPage() {
   if (apiService.page === apiService.maxPage) {
+    notifyInfo('There are no more films by this request!')
     return;
   }
   apiService.page += 1;
