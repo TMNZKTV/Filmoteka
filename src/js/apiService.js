@@ -2,8 +2,9 @@ import axios from 'axios';
 
 const fetchMovies = {
   searchQuery: '',
-  page: 1,
   apiKey: 'e1648943ec3f00b3b8db827b73df4be9',
+  page: 1,
+  maxPage: 'number',
 
   fetchID(id) {
     return axios(
@@ -27,6 +28,10 @@ const fetchMovies = {
 
   resetPage() {
     this.page = 1;
+  },
+  
+  setMaxPage(value) {
+     this.maxPage = value;
   },
 
   get query() {

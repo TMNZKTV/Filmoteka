@@ -6,6 +6,11 @@
     display: none;
   }
 
+  &__arrow-icon {
+    width: 16px;
+    height: 16px;
+  }
+
   &__arrow-left,
   &__arrow-right {
     display: flex;
@@ -16,11 +21,13 @@
     border-radius: 5px;
     border: none;
     background-color: #f7f7f7;
+    cursor: pointer;
+    &:hover,
+    &:focus .pagination__arrow-icon {
+      transform: scale(1.1);
+    }
   }
-  &__arrow-icon {
-    width: 16px;
-    height: 16px;
-  }
+
   &__list {
     list-style: none;
     display: flex;
@@ -35,12 +42,18 @@
     width: 40px;
     height: 40px;
     border: none;
+    border-radius: 5px;
+
     color: $dark-text-color;
     background-color: #ffffff;
     @include font(500, 12px, 1.33);
     cursor: pointer;
+    &:hover,
+    &:focus {
+      @include font(500, 14px, 1.33);
+    }
   }
-  &__item.--current button {
+  &__item.current button {
     background-color: $accent-color;
     color: $light-text-color;
   }
