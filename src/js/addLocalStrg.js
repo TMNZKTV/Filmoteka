@@ -1,5 +1,10 @@
-import { getCardMove, toggleModal } from './modal';
+import refs from './refs';
+import { markupLibrery, markupHome, showWatched, showQueue } from './librery';
+import { toggleModal } from './modal';
+import getMarkupGallery from './gallery-markup.js';
+import apiService from './apiService';
 
+const { galleryRef, overlay } = refs;
 let idWatched = [];
 let idQueue = [];
 
@@ -14,7 +19,6 @@ function getId() {
 
 function addWatchedLS(event) {
   const currentId = event.target.dataset.id;
-  console.log(event.target.dataset.check);
   if (event.target.dataset.check !== 'true') {
     changeStyleCurrent(event.target);
     event.target.dataset.check = 'true';
@@ -28,6 +32,8 @@ function addWatchedLS(event) {
         idWatched.splice(i, 1);
       }
     });
+    showWatched();
+    toggleModal();
     localStorage.setItem('addWatchedFilm', JSON.stringify(idWatched));
   }
 }
@@ -47,6 +53,8 @@ function addQueueLS(event) {
         idQueue.splice(i, 1);
       }
     });
+    showQueue();
+    toggleModal();
     localStorage.setItem('addQueueFilm', JSON.stringify(idQueue));
   }
 }
