@@ -25,14 +25,20 @@
     align-items: center;
   }
 
-  &__item {
+  &__item button {
     display: flex;
     justify-content: center;
     align-items: center;
     width: 40px;
     height: 40px;
+    border: none;
+    color: $dark-text-color;
+    background-color: #ffffff;
+    @include font(500, 12px, 1.33);
+    cursor: pointer;
   }
-  &__current-page {
+  &__item.--current button {
     background-color: $accent-color;
+    color: $light-text-color;
   }
 }

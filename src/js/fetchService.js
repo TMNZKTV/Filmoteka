@@ -11,20 +11,56 @@ setTimeout(initialFetch, 0);
 refs.inputSearch.addEventListener('input', debounce((onInputSearch), 500));
 refs.toNextPageBtn.addEventListener('click', onNextPage);
 refs.toPrevPageBtn.addEventListener('click', onPrevPage);
+refs.paginationList.addEventListener('click', onPageClick);
 
 function initialFetch() {
   cleanMarkup();
-  apiService.fetchPopularMovies().then(({ results }) => {
+  cleanPagesMarkup(); 
+  let itemList = [];
+  apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
     getMarkupGallery(results);
+    if (total_pages - page < 7) {
+      for (let i = total_pages - 1; i > total_pages - 7; i -= 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        itemList.unshift(item);
+      } 
+    } else {
+      for (let i = page; i < page + 7 && i < total_pages; i += 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        itemList.push(item);
+      }
+    }
+    let listToShow = itemList.join(' ') + `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+    refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
   })
 }
 
 function fetchByKeyWords() {
-  apiService.fetchMovies().then(({ results }) => {
+  cleanMarkup();
+  cleanPagesMarkup(); 
+  let itemList = [];
+  
+  apiService.fetchMovies().then(({ results, page, total_pages }) => {
     getMarkupGallery(results);
     if (results.length === 0) {
       notifyInfo('Try another word', 'No images found for this request');
     }
+    
+    if (total_pages - page < 7) {
+      for (let i = total_pages - 1; i > total_pages - 7; i -= 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        itemList.unshift(item);
+      } 
+    } else {
+      for (let i = page; i < page + 7 && i < total_pages; i += 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        itemList.push(item);
+      }
+    }
+
+    let listToShow = itemList.join(' ') + `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+    refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
+
   });
 }
 
@@ -32,32 +68,7 @@ function onInputSearch(event) {
   const movieToFind = event.target.value;
   apiService.query = movieToFind;
   apiService.resetPage();
-  cleanMarkup();
-  apiService.fetchMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results);
-    let itemList = [];
-    for (let i = 1; i < total_pages; i += 1) {
-      const item = `<li class="pagination__item">${i}</li>`;
-      itemList.push(item);
-    }
-    // console.log(itemList.join(' '));
-
-    //   if (itemList.length > 9) {
-    //     itemToShow = ...itemList.slice( );
-    // itemList = [`<li class="pagination__item">1</li>, <li class="pagination__item">...</li>,  ,<li class="pagination__item">...</li> ,<li class="pagination__item">${total_pages}</li>`];
-    //   }
-    // const paginationMarkup =
-    //   `<li class="pagination__item">1</li>
-    //   <li class="pagination__item"></li>
-    //   <li class="pagination__item pagination__current-page">${page}</li>
-    //   <li class="pagination__item">${total_pages}</li>`;
-  
-    // refs.paginationList.insertAdjacentHTML('beforeend', itemList.join(' '));
-  
-    if (results.length === 0) {
-      notifyInfo('Try another word', 'No images found for this request');
-    }
-  });
+  fetchByKeyWords();
 
   if (apiService.query === '') {
     apiService.resetPage();
@@ -66,17 +77,25 @@ function onInputSearch(event) {
   }
 }
 
+function onPageClick(event) {
+  apiService.page = event.target.innerHTML;
+  makePopularOrKeyWordFetch();
+  // event.target.parentElement.classList.add('--current');
+  // let prevPage = event.target.parentElement.classList.add('--current');
+  // let nextPage =  prevPage.
+  // // if(event.currentTarget.children)
+
+  // console.dir(event.target.parentElement.classList)
+  // console.dir(event.currentTarget.children)
+}
+
 function onNextPage() {
   apiService.page += 1;
-  cleanMarkup();
-  // console.dir(refs.inputSearch.value)
   makePopularOrKeyWordFetch()
 }
 
-
 function onPrevPage() {
   apiService.page -= 1;
-  cleanMarkup();
   makePopularOrKeyWordFetch()
 };
 
@@ -87,7 +106,11 @@ function makePopularOrKeyWordFetch() {
     fetchByKeyWords();
   }
 }
+
 function cleanMarkup() {
   refs.galleryRef.innerHTML = '';
 };
+function cleanPagesMarkup() {
+  refs.paginationList.innerHTML = '';
+}
 
