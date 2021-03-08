@@ -12,6 +12,7 @@ function toggleLibraryButtonsON(event) {
   searchForm.classList.add('is-hidden');
   homeButton.classList.remove('current');
   markupLibrery(event);
+  refs.homePagination.classList.add('is-hidden');
 }
 function toggleLibraryButtonsOFF(event) {
   libraryButtons.classList.add('is-hidden');
@@ -19,4 +20,6 @@ function toggleLibraryButtonsOFF(event) {
   searchForm.classList.remove('is-hidden');
   homeButton.classList.add('current');
   markupHome(event);
+  refs.homePagination.classList.remove('is-hidden');
+  refs.libraryPagination.classList.add('is-hidden');
 }

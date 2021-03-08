@@ -60,6 +60,11 @@ function showWatched() {
   idWatched.forEach(id => {
     apiService.fetchID(id).then(array => getMarkupGallery([array]));
   });
+  const watchedFilms = JSON.parse(localStorage.getItem('addWatchedFilm'));
+  refs.libraryPagination.classList.add('is-hidden');
+  if (watchedFilms.length > 19) {
+  refs.libraryPagination.classList.remove('is-hidden');
+}
 }
 
 function showQueue() {
@@ -72,6 +77,11 @@ function showQueue() {
   } else {
     galleryRef.innerHTML = '<li>Вы ничего не добавили!</li>';
   }
+  const queueFilms = JSON.parse(localStorage.getItem('addQueueFilm'));
+  refs.libraryPagination.classList.add('is-hidden');
+  if (queueFilms.length > 19) {
+  refs.libraryPagination.classList.remove('is-hidden');
+}
 }
 
 function changeColorBtn(add, remove) {
@@ -82,3 +92,4 @@ function changeColorBtn(add, remove) {
 }
 
 export { markupLibrery, markupHome, showWatched, showQueue };
+
