@@ -4,7 +4,6 @@ const { modal } = refs;
 
 const getMarkupModal = objectMovie => {
   const updateMarkup = markup(objectMovie);
-
   modal.insertAdjacentHTML('beforeend', updateMarkup);
 };
 
