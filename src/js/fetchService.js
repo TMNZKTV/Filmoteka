@@ -23,7 +23,6 @@ function initialFetch() {
       const genresFilm = objFilm.genre_ids;
       arrayGenres.then(({ genres }) => {
         genres.forEach(genre => {
-          console.log();
           if (genresFilm.includes(genre.id)) {
             genresFilm.splice(genresFilm.indexOf(genre.id), 1, {
               id: genre.id,
@@ -36,7 +35,6 @@ function initialFetch() {
       objFilm.release_date = newDate;
       return objFilm;
     });
-    console.log(newArrayFilm);
 
     getMarkupGallery(newArrayFilm, refs.galleryRef);
     apiService.page = page;
