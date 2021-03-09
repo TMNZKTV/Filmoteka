@@ -34,17 +34,16 @@ li {
   margin-right: auto;
   padding-left: 15px;
   padding-right: 15px;
-  text-align: center;
 
-  @mixin for-size($mobile) {
-    width: 462px;
+  @include for-size(mobile) {
+    width: 320px;
   }
-  @mixin for-size($tablet) {
-    width: 750px;
+  @include for-size(tablet) {
+    width: 740px;
   }
 
-  @mixin for-size($desktop) {
-    width: 1182px;
+  @include for-size(desktop) {
+    width: 1090px;
   }
 }
 
