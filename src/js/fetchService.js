@@ -16,12 +16,28 @@ function initialFetch() {
   cleanMarkup();
   cleanPagesMarkup();
   refs.homePagination.classList.remove('is-hidden');
+  const arrayGenres = apiService.fetchGenres();
+
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
-    const newArrayFilm = results.map(el => {
-      const newDate = el.release_date.slice(0, 4);
-      el.release_date = newDate;
-      return el;
+    const newArrayFilm = results.map(objFilm => {
+      const genresFilm = objFilm.genre_ids;
+      arrayGenres.then(({ genres }) => {
+        genres.forEach(genre => {
+          console.log();
+          if (genresFilm.includes(genre.id)) {
+            genresFilm.splice(genresFilm.indexOf(genre.id), 1, {
+              id: genre.id,
+              name: genre.name,
+            });
+          }
+        });
+      });
+      const newDate = objFilm.release_date.slice(0, 4);
+      objFilm.release_date = newDate;
+      return objFilm;
     });
+    console.log(newArrayFilm);
+
     getMarkupGallery(newArrayFilm, refs.galleryRef);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
