@@ -1,8 +1,12 @@
+.section {
+  padding: 60px 0;
+}
+
 .gallery {
   display: flex;
   flex-wrap: wrap;
   max-width: 1090px;
-  padding: 60px 0;
+
   // margin: -30px;
   // margin-left: auto;
   // margin-right: auto;
@@ -36,6 +40,11 @@
       margin-bottom: 30px;
     }
   }
+}
+
+.genres__list {
+  @include flexbox;
+  justify-content: flex-start;
 }
 
 .film-img {

@@ -2,7 +2,7 @@ import refs from './refs';
 import { idWatched, idQueue } from './checkNotEmptyLS';
 import { changeColorBtn } from './librery';
 import apiService from './apiService';
-import getMarkupGallery from './gallery-markup.js';
+import getMarkupLibrery from './librery-markup';
 
 const {
   galleryLibrery,
@@ -61,7 +61,14 @@ function showQueue() {
 function markupListByPage(id) {
   apiService
     .fetchID(id)
-    .then(array => getMarkupGallery([array], galleryLibrery));
+    .then(array => {
+      const arrayL = array;
+      console.log(arrayL);
+      getMarkupLibrery([array]);
+    })
+    .then(genres => {
+      console.log(genres);
+    });
 }
 
 function onNextPageWatched() {

@@ -6,14 +6,15 @@
 	<div class="film-box">
 		<h3 class="film-title">{{original_title}}</h3>
 
-		<ul>
+		<ul class="genres__list">
 			{{#each genre_ids}}
-			<li><span class="film-text genre">{{genre}}</span></li>
+			<li><span class="film-text genre">{{this}},&ensp;</span></li>
 			{{/each}}
 		</ul>
-
 		<span class="film-text">| {{release_date}}</span>
 		<span class="film-rate">{{vote_average}}</span>
+
+
 	</div>
 </li>
 {{/each}}

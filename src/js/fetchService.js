@@ -12,6 +12,33 @@ refs.toNextPageBtn.addEventListener('click', onNextPage);
 refs.toPrevPageBtn.addEventListener('click', onPrevPage);
 refs.paginationList.addEventListener('click', onPageClick);
 
+async function getGenres() {
+  const newArrayFilm = await apiService
+    .fetchPopularMovies()
+    .then(({ results }) => results);
+  const arrayGenres = await apiService
+    .fetchGenres()
+    .then(({ genres }) => genres);
+  return { newArrayFilm, arrayGenres };
+}
+
+function getMarkupWithGenres() {
+  getGenres().then(({ newArrayFilm, arrayGenres }) => {
+    newArrayFilm.forEach(({ genre_ids, release_date }) => {
+      arrayGenres.forEach(({ name, id }) => {
+        if (genre_ids.includes(id)) {
+          if (genre_ids.length > 2) {
+            genre_ids.splice(2, genre_ids.length - 1, 'Other');
+          }
+          genre_ids.splice(genre_ids.indexOf(id), 1, name);
+        }
+      });
+    });
+    console.log(newArrayFilm);
+    getMarkupGallery(newArrayFilm);
+  });
+}
+
 function initialFetch() {
   cleanMarkup();
   cleanPagesMarkup();
@@ -19,26 +46,8 @@ function initialFetch() {
   const arrayGenres = apiService.fetchGenres();
 
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
-    const newArrayFilm = results.map(objFilm => {
-      const genresFilm = objFilm.genre_ids;
-      arrayGenres.then(({ genres }) => {
-        genres.forEach(genre => {
-          console.log();
-          if (genresFilm.includes(genre.id)) {
-            genresFilm.splice(genresFilm.indexOf(genre.id), 1, {
-              id: genre.id,
-              name: genre.name,
-            });
-          }
-        });
-      });
-      const newDate = objFilm.release_date.slice(0, 4);
-      objFilm.release_date = newDate;
-      return objFilm;
-    });
-    console.log(newArrayFilm);
+    getMarkupWithGenres();
 
-    getMarkupGallery(newArrayFilm, refs.galleryRef);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
     let listToShow = '';
@@ -93,7 +102,7 @@ function fetchByKeyWords() {
   cleanPagesMarkup();
 
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results, refs.galleryRef);
+    getMarkupGallery(results);
     apiService.page = page;
     apiService.setMaxPage(total_pages);
 
@@ -227,3 +236,5 @@ function highlightCurrentPage() {
     }
   });
 }
+
+export { getMarkupWithGenres };

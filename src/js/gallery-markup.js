@@ -1,10 +1,11 @@
 import itemsTemplate from '../templates/movieGallery.hbs';
 import refs from './refs';
 
-function getMarkupGallery(requestedMovies, element) {
-  console.log(requestedMovies.genre_ids);
+const { galleryRef } = refs;
+
+function getMarkupGallery(requestedMovies) {
   const markup = itemsTemplate(requestedMovies);
-  element.insertAdjacentHTML('beforeend', markup);
+  galleryRef.insertAdjacentHTML('beforeend', markup);
 }
 
 export default getMarkupGallery;
