@@ -9,6 +9,8 @@ const refs = {
   inputSearch: document.querySelector('#searchQuery'),
   homeButton: document.querySelector('[data-action="home"]'),
   libraryButton: document.querySelector('[data-action="library"]'),
+  homeButtonText: document.querySelector('.menu__home'),
+  libraryButtonText: document.querySelector('.menu__library'),
   libraryButtons: document.querySelector('.library__buttons'),
   searchForm: document.querySelector('.input__field'),
   btnWatched: document.querySelector('[data-action="watched"]'),
@@ -19,7 +21,9 @@ const refs = {
   toNextPageBtn: document.querySelector(
     '.js-pagination .pagination__arrow-right',
   ),
-  toPrevPageBtnLibrery: document.querySelector('.library-pagination__arrow-left'),
+  toPrevPageBtnLibrery: document.querySelector(
+    '.library-pagination__arrow-left',
+  ),
   toNextPageBtnLibrery: document.querySelector(
     '.library-pagination__arrow-right',
   ),
