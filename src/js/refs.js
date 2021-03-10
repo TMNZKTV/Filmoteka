@@ -29,6 +29,7 @@ const refs = {
   libraryPaginationList: document.querySelector('.library-pagination__list'),
   libraryPagination: document.querySelector('.library-pagination'),
   headerBack: document.querySelector('.page__header'),
+  // genresList: document.querySelector('.js-genres__list'),
 };
 
 export default refs;
