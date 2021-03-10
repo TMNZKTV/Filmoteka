@@ -5,15 +5,13 @@
     </div>
     <div class="film-box">
         <h3 class="film-title">{{original_title}}</h3>
-
         <ul class="genres__list">
-            {{#each genres}}
-            <li><span class="film-text genre">{{name}},&ensp;</span></li>
-            {{/each}}
+            <li class="genres__item">
+                <span class="film-text genre">{{genre_names}} |</span>
+                <span class="film-text">{{date}}</span>
+                <span class="film-rate">{{vote_average}}</span>
+            </li>
         </ul>
-
-        <span class="film-text">| {{release_date}}</span>
-        <span class="film-rate">{{vote_average}}</span>
     </div>
 </li>
 {{/each}}

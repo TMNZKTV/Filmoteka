@@ -24,8 +24,9 @@ async function getGenres() {
 
 function getPopularFilmMarkup() {
   getGenres().then(({ newArrayFilm, arrayGenres }) => {
-    newArrayFilm.forEach((filmObj) => {
+    newArrayFilm.forEach(filmObj => {
       const { genre_ids } = filmObj;
+      const { release_date } = filmObj;
       arrayGenres.forEach(({ name, id }) => {
         if (genre_ids.includes(id)) {
           if (genre_ids.length > 2) {
@@ -33,34 +34,37 @@ function getPopularFilmMarkup() {
           }
           genre_ids.splice(genre_ids.indexOf(id), 1, name);
         }
+        const newDate = release_date.slice(0, 4);
+        filmObj.date = newDate;
         filmObj.genre_names = genre_ids.join(', ');
       });
     });
-    // console.log(newArrayFilm);
     getMarkupGallery(newArrayFilm);
   });
 }
 
 function getRequestedFilmMarkup() {
-  apiService
-    .fetchMovies()
-    .then(({ results }) => { 
-      getGenres().then(({ arrayGenres }) => {
-    results.forEach((filmObj) => {
-      const { genre_ids } = filmObj;
-      arrayGenres.forEach(({ name, id }) => {
-        if (genre_ids.includes(id)) {
-          if (genre_ids.length > 2) {
-            genre_ids.splice(2, genre_ids.length - 1, 'Other');
+  apiService.fetchMovies().then(({ results }) => {
+    getGenres().then(({ arrayGenres }) => {
+      results.forEach(filmObj => {
+        const { genre_ids } = filmObj;
+        const { release_date } = filmObj;
+
+        arrayGenres.forEach(({ name, id }) => {
+          if (genre_ids.includes(id)) {
+            if (genre_ids.length > 2) {
+              genre_ids.splice(2, genre_ids.length - 1, 'Other');
+            }
+            genre_ids.splice(genre_ids.indexOf(id), 1, name);
           }
-          genre_ids.splice(genre_ids.indexOf(id), 1, name);
-        }
-        filmObj.genre_names = genre_ids.join(', ');
+          const newDate = release_date.slice(0, 4);
+          filmObj.date = newDate;
+          filmObj.genre_names = genre_ids.join(', ');
+        });
       });
+      getMarkupGallery(results);
     });
-    getMarkupGallery(results);
   });
-    });
 }
 
 function initialFetch() {
@@ -152,54 +156,54 @@ function cleanPagesMarkup() {
 }
 
 function numberMarkup(page, total_pages) {
-      apiService.page = page;
-      apiService.setMaxPage(total_pages);
-      if (total_pages <= 1) {
-        refs.homePagination.classList.add('is-hidden');
-        return;
-      }
-      refs.homePagination.classList.remove('is-hidden');
-      
-      let listToShow = '';
-      let listItems = [];
-      const hiddenPrevPages =
-        '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
-      const hiddenNextPages =
-        '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
-      if (total_pages - page < 6) {
-        for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
-          const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-          listItems.unshift(item);
-        }
-      } else {
-        for (let i = page; i < page + 6 && i < total_pages; i += 1) {
-          const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-          listItems.push(item);
-        }
-      }
+  apiService.page = page;
+  apiService.setMaxPage(total_pages);
+  if (total_pages <= 1) {
+    refs.homePagination.classList.add('is-hidden');
+    return;
+  }
+  refs.homePagination.classList.remove('is-hidden');
 
-      listToShow = listItems.join(' ');
-      if (total_pages > 6) {
-        listToShow =
-          listItems.join(' ') +
-          hiddenNextPages +
-          `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
-      }
-      if (page > 5) {
-        listToShow =
-          `<li class="pagination__item"><button type="button">1</button></li>` +
-          hiddenPrevPages +
-          listItems.join(' ') +
-          hiddenNextPages +
-          `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
-      }
-      if (total_pages > 6 && page > total_pages - 6) {
-        listToShow =
-          `<li class="pagination__item"><button type="button">1</button></li>` +
-          hiddenPrevPages +
-          listItems.join(' ');
-      }
-      refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
+  let listToShow = '';
+  let listItems = [];
+  const hiddenPrevPages =
+    '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
+  const hiddenNextPages =
+    '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
+  if (total_pages - page < 6) {
+    for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.unshift(item);
+    }
+  } else {
+    for (let i = page; i < page + 6 && i < total_pages; i += 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.push(item);
+    }
+  }
+
+  listToShow = listItems.join(' ');
+  if (total_pages > 6) {
+    listToShow =
+      listItems.join(' ') +
+      hiddenNextPages +
+      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+  }
+  if (page > 5) {
+    listToShow =
+      `<li class="pagination__item"><button type="button">1</button></li>` +
+      hiddenPrevPages +
+      listItems.join(' ') +
+      hiddenNextPages +
+      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+  }
+  if (total_pages > 6 && page > total_pages - 6) {
+    listToShow =
+      `<li class="pagination__item"><button type="button">1</button></li>` +
+      hiddenPrevPages +
+      listItems.join(' ');
+  }
+  refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
 }
 
 function highlightCurrentPage() {
@@ -211,4 +215,4 @@ function highlightCurrentPage() {
   });
 }
 
-export { getPopularFilmMarkup };
+export { getPopularFilmMarkup, getGenres };
