@@ -26,6 +26,7 @@ function getPopularFilmMarkup() {
   getGenres().then(({ newArrayFilm, arrayGenres }) => {
     newArrayFilm.forEach(filmObj => {
       const { genre_ids } = filmObj;
+      const { release_date } = filmObj;
       arrayGenres.forEach(({ name, id }) => {
         if (genre_ids.includes(id)) {
           if (genre_ids.length > 2) {
@@ -33,10 +34,11 @@ function getPopularFilmMarkup() {
           }
           genre_ids.splice(genre_ids.indexOf(id), 1, name);
         }
+        const newDate = release_date.slice(0, 4);
+        filmObj.date = newDate;
         filmObj.genre_names = genre_ids.join(', ');
       });
     });
-    // console.log(newArrayFilm);
     getMarkupGallery(newArrayFilm);
   });
 }
@@ -46,6 +48,8 @@ function getRequestedFilmMarkup() {
     getGenres().then(({ arrayGenres }) => {
       results.forEach(filmObj => {
         const { genre_ids } = filmObj;
+        const { release_date } = filmObj;
+
         arrayGenres.forEach(({ name, id }) => {
           if (genre_ids.includes(id)) {
             if (genre_ids.length > 2) {
@@ -53,6 +57,8 @@ function getRequestedFilmMarkup() {
             }
             genre_ids.splice(genre_ids.indexOf(id), 1, name);
           }
+          const newDate = release_date.slice(0, 4);
+          filmObj.date = newDate;
           filmObj.genre_names = genre_ids.join(', ');
         });
       });
@@ -209,4 +215,4 @@ function highlightCurrentPage() {
   });
 }
 
-export { getPopularFilmMarkup };
+export { getPopularFilmMarkup, getGenres };

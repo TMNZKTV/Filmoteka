@@ -2,6 +2,7 @@ import refs from './refs';
 import { idWatched, idQueue } from './checkNotEmptyLS';
 import { changeColorBtn } from './librery';
 import apiService from './apiService';
+import { getGenres } from './fetchService';
 import getMarkupLibrery from './librery-markup';
 
 const {
@@ -58,22 +59,61 @@ function showQueue() {
   }
 }
 
+// function markupListByPage(id) {
+//   apiService.fetchID(id).then(array => {
+//     const newArray = [array];
+//     newArray.forEach(({ genres, release_date }) => {
+//       if (genres.length > 2) {
+//         genres.splice(2, genres.length - 1, { name: 'Other' });
+//       }
+//       if (release_date.length > 4) {
+//         release_date.slice(0, 4);
+//       }
+//       console.log(release_date);
+//     });
+//     console.log(newArray);
+//     getMarkupLibrery(newArray);
+//   });
+// }
+
 function markupListByPage(id) {
   apiService.fetchID(id).then(array => {
     const newArray = [array];
-    newArray.forEach(({ genres, release_date }) => {
-      if (genres.length > 2) {
-        genres.splice(2, genres.length - 1, { name: 'Other' });
+    newArray.forEach(filmObj => {
+      const { genres } = filmObj;
+      const { release_date } = filmObj;
+      const newDate = release_date.slice(0, 4);
+      const names = genres.map(genre => genre.name);
+      if (names.length > 2) {
+        names.splice(2, names.length - 1, 'Other');
       }
-      if (release_date.length > 4) {
-        release_date.slice(0, 4);
-      }
-      console.log(release_date);
+      filmObj.date = newDate;
+      filmObj.genre_names = names.join(', ');
+      console.log(newArray);
+      getMarkupLibrery(newArray);
     });
-    console.log(newArray);
-    getMarkupLibrery(newArray);
   });
 }
+
+// function getRequestedFilmMarkup() {
+//     apiService.fetchMovies().then(({ results }) => {
+//       getGenres().then(({ arrayGenres }) => {
+//         results.forEach(filmObj => {
+//           const { genre_ids } = filmObj;
+//           arrayGenres.forEach(({ name, id }) => {
+//             if (genre_ids.includes(id)) {
+//               if (genre_ids.length > 2) {
+//                 genre_ids.splice(2, genre_ids.length - 1, 'Other');
+//               }
+//               genre_ids.splice(genre_ids.indexOf(id), 1, name);
+//             }
+//             filmObj.genre_names = genre_ids.join(', ');
+//           });
+//         });
+//         getMarkupGallery(results);
+//       });
+//     });
+//   }
 
 function onNextPageWatched() {
   galleryLibrery.innerHTML = '';
