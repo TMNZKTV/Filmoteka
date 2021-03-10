@@ -36,12 +36,14 @@
           <div class="menu__container">
             <ul class="menu__list">
               <li class="menu__item">
-                <button type="button" class="current" data-action="home">
-                  HOME
+                <button type="button" data-action="home">
+                  <span class="menu__home current">HOME</span>
                 </button>
               </li>
               <li class="menu__item">
-                <button type="button" data-action="library">MY LIBRARY</button>
+                <button type="button" data-action="library">
+                  <span class="menu__library">MY LIBRARY</span>
+                </button>
               </li>
             </ul>
           </div>
@@ -78,8 +80,7 @@
 
     <main>
       <section class="section js-homepage">
-        <div class="container ">
-          
+        <div class="container">
           <ul class="gallery js-gallery__home"></ul>
           <div class="pagination js-pagination">
             <button class="pagination__arrow-left" type="button">
@@ -87,8 +88,7 @@
                 <use href="./img/symbol-defs.svg#icon-arrow-left"></use>
               </svg>
             </button>
-            <ul class="pagination__list">
-            </ul>
+            <ul class="pagination__list"></ul>
             <button class="pagination__arrow-right" type="button">
               <svg class="pagination__arrow-icon">
                 <use href="./img/symbol-defs.svg#icon-arrow-right"></use>
@@ -98,17 +98,15 @@
         </div>
       </section>
       <section class="section js-librery is-hidden">
-        <div class="container ">
-          
+        <div class="container">
           <ul class="gallery js-gallery__librery"></ul>
-          <div class="library-pagination is-hidden" >
+          <div class="library-pagination is-hidden">
             <button class="library-pagination__arrow-left" type="button">
               <svg class="library-pagination__arrow-icon">
                 <use href="./img/symbol-defs.svg#icon-arrow-left"></use>
               </svg>
             </button>
-            <ul class="library-pagination__list">
-            </ul>
+            <ul class="library-pagination__list"></ul>
             <button class="library-pagination__arrow-right" type="button">
               <svg class="library-pagination__arrow-icon">
                 <use href="./img/symbol-defs.svg#icon-arrow-right"></use>
@@ -122,7 +120,7 @@
     <footer class="page-footer">
       <div class="container footer-container">
         <div class="footer-rigths">
-          <span >© 2021 | All Rights Reserved |</span>
+          <span>© 2021 | All Rights Reserved |</span>
         </div>
 
         <div class="footer-devs">
