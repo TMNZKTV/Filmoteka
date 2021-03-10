@@ -1,5 +1,6 @@
 import refs from './refs';
-import getMarkupGallery from './gallery-markup.js';
+import getMarkupGallery from './gallery-markup';
+import { getMarkupWithGenres } from './fetchService';
 import apiService from './apiService';
 import { showWatched, showQueue } from './showLibrery';
 
@@ -24,9 +25,7 @@ function markupLibrery(event) {
 function markupHome(event) {
   changeIsHidden(event, librerySection, homepageSection);
 
-  apiService
-    .fetchPopularMovies()
-    .then(({ results }) => getMarkupGallery(results, galleryRef));
+  getMarkupWithGenres();
 }
 
 function changeIsHidden(event, add, remove) {
