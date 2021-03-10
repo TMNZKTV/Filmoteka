@@ -36,14 +36,14 @@ li {
   padding-right: 15px;
 
   @include for-size(mobile) {
-    width: 320px;
+    width: 310px;
   }
   @include for-size(tablet) {
-    width: 740px;
+    width: 648px;
   }
 
   @include for-size(desktop) {
-    width: 1090px;
+    width: 942px;
   }
 }
 
