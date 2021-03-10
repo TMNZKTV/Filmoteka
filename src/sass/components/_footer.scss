@@ -15,16 +15,20 @@
    
 
   
-    @mixin for-size($tablet) {
+    @include for-size(tablet) {
       display: flex;
       justify-content: center;
       font-size: 16px;
+      padding-top: 30px;
+      padding-bottom: 28px;
     }
   
-    @mixin for-size($desktop) {
+    @include for-size(desktop) {
       display: flex;
       justify-content: center;
       font-size: 16px;
+      padding-top: 30px;
+      padding-bottom: 28px;
     }
  
    
@@ -40,5 +44,16 @@
 
 .footer-devs {
   margin-top: 10px;
+
+  @include for-size(tablet) {
+    margin-top: 0px;
+    margin-left: 4px;
+  }
+
+  @include for-size(desktop) {
+    margin-top: 0px;
+    margin-left: 4px;
+  }
+
 }
 

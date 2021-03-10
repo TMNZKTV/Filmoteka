@@ -46,7 +46,9 @@ function initialFetch() {
   const arrayGenres = apiService.fetchGenres();
 
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
+
     getMarkupWithGenres();
+
 
     apiService.page = page;
     apiService.setMaxPage(total_pages);

@@ -1,6 +1,7 @@
 import itemsTemplate from '../templates/movieGallery.hbs';
 import refs from './refs';
 
+
 const { galleryRef } = refs;
 
 function getMarkupGallery(requestedMovies) {

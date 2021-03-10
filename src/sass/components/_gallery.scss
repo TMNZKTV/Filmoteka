@@ -70,3 +70,14 @@
   @include font(500, 12px, 1.33);
   color: $accent-color;
 }
+
+.film-rate {
+  @include font(500, 12px, 1.33);
+  text-align: center;
+  max-width: 36px;
+  border-radius: 5px;
+  
+  color: $light-text-color;
+  background-color: $accent-color;
+}
+
