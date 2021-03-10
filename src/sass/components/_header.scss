@@ -13,7 +13,7 @@
 }
 // NAVIGATION //
 .navigation {
-  padding-top: 58px;
+  padding-top: 41px;
   display: flex;
   flex-wrap: wrap;
   justify-content: baseline;
@@ -128,7 +128,7 @@
 }
 .library__buttons {
   display: inline-block;
-  padding-bottom: 35px;
+  padding-bottom: 65px;
   //Must be 65px but for some reason it doesn't fit the container
 
   &.is-hidden {
