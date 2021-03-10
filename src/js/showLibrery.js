@@ -59,16 +59,20 @@ function showQueue() {
 }
 
 function markupListByPage(id) {
-  apiService
-    .fetchID(id)
-    .then(array => {
-      const arrayL = array;
-      console.log(arrayL);
-      getMarkupLibrery([array]);
-    })
-    .then(genres => {
-      console.log(genres);
+  apiService.fetchID(id).then(array => {
+    const newArray = [array];
+    newArray.forEach(({ genres, release_date }) => {
+      if (genres.length > 2) {
+        genres.splice(2, genres.length - 1, { name: 'Other' });
+      }
+      if (release_date.length > 4) {
+        release_date.slice(0, 4);
+      }
+      console.log(release_date);
     });
+    console.log(newArray);
+    getMarkupLibrery(newArray);
+  });
 }
 
 function onNextPageWatched() {

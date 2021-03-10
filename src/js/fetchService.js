@@ -34,7 +34,7 @@ function getMarkupWithGenres() {
         }
       });
     });
-    console.log(newArrayFilm);
+
     getMarkupGallery(newArrayFilm);
   });
 }
@@ -46,9 +46,7 @@ function initialFetch() {
   const arrayGenres = apiService.fetchGenres();
 
   apiService.fetchPopularMovies().then(({ results, page, total_pages }) => {
-
     getMarkupWithGenres();
-
 
     apiService.page = page;
     apiService.setMaxPage(total_pages);
@@ -104,7 +102,7 @@ function fetchByKeyWords() {
   cleanPagesMarkup();
 
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
-    getMarkupGallery(results);
+    getMarkupWithGenres();
     apiService.page = page;
     apiService.setMaxPage(total_pages);
 
