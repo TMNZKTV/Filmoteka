@@ -10,6 +10,9 @@ overlay.addEventListener('click', closeModalOUT);
 
 function toggleModal() {
   overlay.classList.toggle('is-hidden');
+  if (overlay.classList.contains('is-hidden')) {
+    document.body.style.overflow = 'auto';
+  }
 }
 
 function closeModalESC(event) {
@@ -27,6 +30,7 @@ function closeModalOUT(event) {
 
 function getCardMove(event) {
   event.preventDefault();
+  document.body.style.overflow = 'hidden';
 
   const currentFilm = event.target;
 
