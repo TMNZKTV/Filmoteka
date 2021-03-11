@@ -20,29 +20,31 @@
 
 .modal__card {
   position: absolute;
-  top: 50%;
+  display: inline-block;
+  width: 280px;
+  height: auto;
+  top: 20px;
   left: 50%;
-  display: flex;
+  transform: translate(-50%);
+  padding: 48px 20px 41px 20px;
 
-  transform: translate(-50%, -50%) scale(1);
+  overflow: auto;
 
-  .overlay.is-hidden & {
-    transform: translate(-50%, -50%) scale(0);
-  }
-
-  @include for-size(tablet-only) {
-    display: block;
-    width: 280px;
-    height: auto;
-    padding: 48px 20px 41px 20px;
-  }
   @include for-size(tablet) {
+    display: flex;
     width: 618px;
     height: auto;
     padding-top: 50px;
     padding-bottom: 40px;
     padding-right: 30px;
     padding-left: 30px;
+    top: 30px;
+    left: 50%;
+    transform: translate(-50%) scale(1);
+
+    .overlay.is-hidden & {
+      transform: translate(-50%) scale(0);
+    }
   }
 
   @include for-size(desktop) {
