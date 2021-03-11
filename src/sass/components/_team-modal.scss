@@ -1,0 +1,27 @@
+.team__list {
+  @include flexbox;
+  flex-wrap: wrap;
+  // width: 280px;
+  padding: 20px;
+  background-color: #fff;
+}
+
+.team_person {
+  @include flexbox;
+  width: 100px;
+  margin-left: 30px;
+  margin-bottom: 30px;
+}
+
+.person__wrapper {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.person__img {
+  display: block;
+  width: 100%;
+}

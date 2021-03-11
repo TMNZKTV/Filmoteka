@@ -1,0 +1,12 @@
+<ul class="team__list">
+    {{#each this}}
+    <li class="team__person">
+        <div class="person__wrapper">
+            <img class="person__img" src="{{image}}">
+        </div>
+        <div class="person__description">
+            <h3 class="person__name">{{name}}</h3>
+            <a class="person__link" href="{{link}}">Link to repository</a>
+    </li>
+    {{/each}}
+</ul>
