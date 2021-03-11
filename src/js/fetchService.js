@@ -23,33 +23,12 @@ async function getGenres() {
 }
 
 function getPopularFilmMarkup() {
-  getGenres().then(({ newArrayFilm, arrayGenres }) => {
-    newArrayFilm.forEach(filmObj => {
-      const { genre_ids } = filmObj;
-      const { release_date } = filmObj;
-      arrayGenres.forEach(({ name, id }) => {
-        if (genre_ids.includes(id)) {
-          if (genre_ids.length > 2) {
-            genre_ids.splice(2, genre_ids.length - 1, 'Other');
-          }
-          genre_ids.splice(genre_ids.indexOf(id), 1, name);
-        }
-        const newDate = release_date.slice(0, 4);
-        filmObj.date = newDate;
-        filmObj.genre_names = genre_ids.join(', ');
-      });
-    });
-    getMarkupGallery(newArrayFilm);
-  });
-}
-
-function getRequestedFilmMarkup() {
-  apiService.fetchMovies().then(({ results }) => {
-    getGenres().then(({ arrayGenres }) => {
-      results.forEach(filmObj => {
+  refs.spinner.classList.remove('is-hidden');
+  getGenres()
+    .then(({ newArrayFilm, arrayGenres }) => {
+      newArrayFilm.forEach(filmObj => {
         const { genre_ids } = filmObj;
         const { release_date } = filmObj;
-
         arrayGenres.forEach(({ name, id }) => {
           if (genre_ids.includes(id)) {
             if (genre_ids.length > 2) {
@@ -62,33 +41,77 @@ function getRequestedFilmMarkup() {
           filmObj.genre_names = genre_ids.join(', ');
         });
       });
-      getMarkupGallery(results);
+      getMarkupGallery(newArrayFilm);
+    })
+    .finally(() => {
+      refs.spinner.classList.add('is-hidden');
     });
+}
+
+function getRequestedFilmMarkup() {
+  refs.spinner.classList.remove('is-hidden');
+
+  apiService.fetchMovies().then(({ results }) => {
+    getGenres()
+      .then(({ arrayGenres }) => {
+        results.forEach(filmObj => {
+          const { genre_ids } = filmObj;
+          const { release_date } = filmObj;
+
+          arrayGenres.forEach(({ name, id }) => {
+            if (genre_ids.includes(id)) {
+              if (genre_ids.length > 2) {
+                genre_ids.splice(2, genre_ids.length - 1, 'Other');
+              }
+              genre_ids.splice(genre_ids.indexOf(id), 1, name);
+            }
+            const newDate = release_date.slice(0, 4);
+            filmObj.date = newDate;
+            filmObj.genre_names = genre_ids.join(', ');
+          });
+        });
+        getMarkupGallery(results);
+      })
+      .finally(() => {
+        refs.spinner.classList.add('is-hidden');
+      });
   });
 }
 
 function initialFetch() {
   cleanMarkup();
   cleanPagesMarkup();
-  apiService.fetchPopularMovies().then(({ page, total_pages }) => {
-    getPopularFilmMarkup();
-    numberMarkup(page, total_pages);
-    highlightCurrentPage();
-  });
+  refs.spinner.classList.remove('is-hidden');
+
+  apiService
+    .fetchPopularMovies()
+    .then(({ page, total_pages }) => {
+      getPopularFilmMarkup();
+      numberMarkup(page, total_pages);
+      highlightCurrentPage();
+    })
+    .finally(() => {
+      refs.spinner.classList.add('is-hidden');
+    });
 }
 
 function fetchByKeyWords() {
   cleanMarkup();
   cleanPagesMarkup();
-  apiService.fetchMovies().then(({ results, page, total_pages }) => {
-    if (results.length === 0) {
-      notifyError('Try another word', 'No movies found for this request');
-
-    }
-    getRequestedFilmMarkup();
-    numberMarkup(page, total_pages);
-    highlightCurrentPage();
-  });
+  refs.spinner.classList.remove('is-hidden');
+  apiService
+    .fetchMovies()
+    .then(({ results, page, total_pages }) => {
+      if (results.length === 0) {
+        notifyError('Try another word', 'No movies found for this request');
+      }
+      getRequestedFilmMarkup();
+      numberMarkup(page, total_pages);
+      highlightCurrentPage();
+    })
+    .finally(() => {
+      refs.spinner.classList.add('is-hidden');
+    });
 }
 
 function onInputSearch(event) {
@@ -109,7 +132,7 @@ function onPageClick(event) {
     return;
   }
   if (window.screen.width < 767) {
-      if (event.target.dataset.action === 'showNextPages') {
+    if (event.target.dataset.action === 'showNextPages') {
       apiService.page += 3;
       makePopularOrKeyWordFetch();
       return;
@@ -188,8 +211,8 @@ function numberMarkup(page, total_pages) {
     '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
   const hiddenNextPages =
     '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
-    console.log(window.screen.width)
-  
+  console.log(window.screen.width);
+
   if (window.screen.width < 767) {
     if (total_pages - page < 3) {
       for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
@@ -197,10 +220,10 @@ function numberMarkup(page, total_pages) {
         listItems.unshift(item);
       }
     } else {
-        for (let i = page; i < page + 3 && i < total_pages; i += 1) {
-          const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-          listItems.push(item);
-        }
+      for (let i = page; i < page + 3 && i < total_pages; i += 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        listItems.push(item);
+      }
     }
     listToShow = listItems.join(' ');
     if (total_pages > 3) {
@@ -210,15 +233,10 @@ function numberMarkup(page, total_pages) {
         `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
     }
     if (page > 3) {
-      listToShow =
-        hiddenPrevPages +
-        listItems.join(' ') +
-        hiddenNextPages;
+      listToShow = hiddenPrevPages + listItems.join(' ') + hiddenNextPages;
     }
     if (total_pages > 3 && page > total_pages - 3) {
-      listToShow =
-        hiddenPrevPages +
-        listItems.join(' ');
+      listToShow = hiddenPrevPages + listItems.join(' ');
     }
     refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
     return;
@@ -234,7 +252,7 @@ function numberMarkup(page, total_pages) {
       listItems.push(item);
     }
   }
-    listToShow = listItems.join(' ');
+  listToShow = listItems.join(' ');
   if (total_pages > 6) {
     listToShow =
       listItems.join(' ') +
@@ -257,7 +275,6 @@ function numberMarkup(page, total_pages) {
   }
   refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
 }
-
 
 function highlightCurrentPage() {
   const paginationListArray = refs.paginationList.children;

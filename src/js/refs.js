@@ -44,6 +44,8 @@ const refs = {
   ),
   queuePagination: document.querySelector('.queue-pagination'),
   headerBack: document.querySelector('.page__header'),
+
+  spinner: document.querySelector('.spinner-grow'),
 };
 
 export default refs;
