@@ -174,7 +174,6 @@ function cleanPagesMarkup() {
 }
 
 function numberMarkup(page, total_pages) {
-  // console.log(window.screen.width)
   apiService.page = page;
   apiService.setMaxPage(total_pages);
   if (total_pages <= 1) {
@@ -189,42 +188,41 @@ function numberMarkup(page, total_pages) {
     '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
   const hiddenNextPages =
     '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
+    console.log(window.screen.width)
   
   if (window.screen.width < 767) {
     if (total_pages - page < 3) {
-    for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
-      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-      listItems.unshift(item);
+      for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        listItems.unshift(item);
+      }
+    } else {
+        for (let i = page; i < page + 3 && i < total_pages; i += 1) {
+          const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+          listItems.push(item);
+        }
     }
-  } else {
-    for (let i = page; i < page + 3 && i < total_pages; i += 1) {
-      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-      listItems.push(item);
+    listToShow = listItems.join(' ');
+    if (total_pages > 3) {
+      listToShow =
+        listItems.join(' ') +
+        hiddenNextPages +
+        `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
     }
-  }
-
-  listToShow = listItems.join(' ');
-  if (total_pages > 3) {
-    listToShow =
-      listItems.join(' ') +
-      hiddenNextPages +
-      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
-  }
-  if (page > 3) {
-    listToShow =
-      hiddenPrevPages +
-      listItems.join(' ') +
-      hiddenNextPages;
-  }
-  if (total_pages > 3 && page > total_pages - 3) {
-    listToShow =
-      hiddenPrevPages +
-      listItems.join(' ');
-  }
+    if (page > 3) {
+      listToShow =
+        hiddenPrevPages +
+        listItems.join(' ') +
+        hiddenNextPages;
+    }
+    if (total_pages > 3 && page > total_pages - 3) {
+      listToShow =
+        hiddenPrevPages +
+        listItems.join(' ');
+    }
     refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
     return;
   }
-  
   if (total_pages - page < 6) {
     for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
       const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
@@ -236,8 +234,7 @@ function numberMarkup(page, total_pages) {
       listItems.push(item);
     }
   }
-
-  listToShow = listItems.join(' ');
+    listToShow = listItems.join(' ');
   if (total_pages > 6) {
     listToShow =
       listItems.join(' ') +
@@ -260,6 +257,7 @@ function numberMarkup(page, total_pages) {
   }
   refs.paginationList.insertAdjacentHTML('beforeend', listToShow);
 }
+
 
 function highlightCurrentPage() {
   const paginationListArray = refs.paginationList.children;
