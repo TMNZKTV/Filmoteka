@@ -4,7 +4,6 @@ import listTeam from '../json/info-team.json';
 import tplTeam from '../templates/team.hbs';
 
 const modalTeam = document.querySelector('.modal-team');
-console.log(modalTeam);
 const team = tplTeam(listTeam);
 
 modalTeam.addEventListener('click', showModal);

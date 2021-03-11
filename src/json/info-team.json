@@ -3,44 +3,38 @@
       "id": "teamlead",
       "name": "Galina Gribova",
       "link": "https://github.com/Axeliriya",
-      "image": "https://avatars.githubusercontent.com/u/63470823?s=460&u=de614361d93fb1216c5cc252b874e21fca72c0ea&v=4",
-      "price": 100
+      "image": "https://avatars.githubusercontent.com/u/63470823?s=460&u=de614361d93fb1216c5cc252b874e21fca72c0ea&v=4"
     },
     {
       "id": "scrum-master",
       "name": "Olga Smirnova",
       "link": "https://github.com/smolfly",
-      "image": "https://avatars.githubusercontent.com/u/68849295?s=400&u=978434f22a7251196a637de712faf90c05fa3ea4&v=4",
-      "price": 150
+      "image": "https://avatars.githubusercontent.com/u/68849295?s=400&u=978434f22a7251196a637de712faf90c05fa3ea4&v=4"
       
     },
     {
       "id": "",
       "name": "Anastasia Polkovnikova",
       "link": "https://github.com/AnastasiaPolkovnikova",
-      "image": "https://avatars.githubusercontent.com/u/68498874?s=400&u=4f2528a045a9ce8943f2d34d2ad602c34a2586a1&v=4",
-      "price": 100
+      "image": "https://avatars.githubusercontent.com/u/68498874?s=400&u=4f2528a045a9ce8943f2d34d2ad602c34a2586a1&v=4"
     },
     {
       "id": "",
       "name": "Petr Lesnov",
       "link": "https://github.com/Lesnov-Petr",
-      "image": "https://avatars.githubusercontent.com/u/68733411?s=400&u=8804bb8a0e6cbad8bbef3db3a901c525a0a689d4&v=4",
-      "price": 150
+      "image": "https://avatars.githubusercontent.com/u/68733411?s=400&u=8804bb8a0e6cbad8bbef3db3a901c525a0a689d4&v=4"
     },
     {
       "id": "",
       "name": "Tumen Zoriktuev",
-      "link": "Это рецепт из старой, привезенной из Греции, кулинарной книги. Секрет салата — свежайшие овощи и хорошая фета. Для салата используют только оливковое масло, а такие специи, как орегано и базилик, являются визитной карточкой греческой кухни.",
-      "image": "https://dietdo.ru/wp-content/uploads/2017/03/Grecheskiy-salat-retsept-klassicheskiy-s-foto-poshagovo-min.jpg",
-      "price": 350
+      "link": "https://github.com/TMNZKTV",
+      "image": ""
     },
     {
       "id": "",
       "name": "Yuriy Dikopoltsev",
-      "description": "Культовая ягода, которую научились производить круглый год, в сочетании с рыхлым тестом — это абсолютно беспроигрышный вариант. Маффины с голубикой стали популярным десертом в Англии и Америке, хотя происхождение их французское. Да и вообще эти маленькие сладкие кексы, какими мы их знаем сейчас, задумывались как обычный хлеб и на вкус были нейтральны.",
-      "image": "https://s1.eda.ru/StaticContent/Photos/120131111301/140324110953/p_O.jpg",
-      "price": 170
+      "link": "https://github.com/YuriyDikopoltsev",
+      "image": "https://avatars.githubusercontent.com/u/65890379?s=400&u=800a2017c40b6fd6a9472edc4cb7dca24c989dc2&v=4"
     }
 ]
     
