@@ -13,3 +13,4 @@ export function notifyInfo(title, text) {
         text: text,
     });
 }
+

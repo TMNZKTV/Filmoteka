@@ -4,6 +4,7 @@ import { changeColorBtn } from './librery';
 import apiService from './apiService';
 import { getGenres } from './fetchService';
 import getMarkupLibrery from './librery-markup';
+import { notifyInfo } from './notifications.js';
 
 const {
   galleryLibrery,
@@ -46,7 +47,7 @@ function showWatched() {
     }
   } else {
     watchedPagination.classList.add('is-hidden');
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вы ничего не добавили</p></li>`;
+    galleryLibrery.innerHTML = `<div class="library-notification"><p class="library-notification__text">Your list of added movies is empty</p></div>`;
   }
 }
 
@@ -71,7 +72,7 @@ function showQueue() {
     }
   } else {
     queuePagination.classList.add('is-hidden');
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вы ничего не добавили</p></li>`;
+     galleryLibrery.innerHTML = `<div class="library-notification"><p class="library-notification__text">Your list of added movies is empty</p></div>`;
   }
 }
 
