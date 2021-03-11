@@ -21,19 +21,25 @@ const refs = {
   toNextPageBtn: document.querySelector(
     '.js-pagination .pagination__arrow-right',
   ),
-  toPrevPageBtnLibrery: document.querySelector(
-    '.library-pagination__arrow-left',
+  toPrevPageBtnWatched: document.querySelector(
+    '.watched-pagination .pagination__arrow-left',
   ),
-  toNextPageBtnLibrery: document.querySelector(
-    '.library-pagination__arrow-right',
+  toNextPageBtnWatched: document.querySelector(
+    '.watched-pagination .pagination__arrow-right',
+  ),
+   toPrevPageBtnQueue: document.querySelector(
+    '.queue-pagination .pagination__arrow-left',
+  ),
+  toNextPageBtnQueue: document.querySelector(
+    '.queue-pagination .pagination__arrow-right',
   ),
   paginationList: document.querySelector('.js-pagination .pagination__list'),
-
   homePagination: document.querySelector('.js-pagination'),
-  libraryPaginationList: document.querySelector('.library-pagination__list'),
-  libraryPagination: document.querySelector('.library-pagination'),
+  watchedPaginationList: document.querySelector('.watched-pagination .pagination__list'),
+  watchedPagination: document.querySelector('.watched-pagination'),
+  queuePaginationList: document.querySelector('.queue-pagination .pagination__list'),
+  queuePagination: document.querySelector('.queue-pagination'),
   headerBack: document.querySelector('.page__header'),
-  // genresList: document.querySelector('.js-genres__list'),
 };
 
 export default refs;
