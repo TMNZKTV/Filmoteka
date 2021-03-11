@@ -5,12 +5,16 @@
   background-size: cover;
 }
 
+
+
+
 .page__header .container {
   max-height: 230px;
+  padding-top: 41px;
+  padding-bottom: 59px;
 }
 // NAVIGATION //
 .navigation {
-  padding-top: 41px;
   display: flex;
   flex-wrap: wrap;
   justify-content: baseline;
@@ -52,6 +56,7 @@
 .menu__container {
   display: flex;
   margin-left: auto;
+  margin-right:20 px;
 }
 .menu__list {
   display: flex;
@@ -72,14 +77,9 @@
   border: none;
   overflow: hidden;
   outline: none;
-  padding: 20px;
-
-  &:hover {
-    cursor: pointer;
-  }
+  padding: 0;
 }
-
-.menu__item > button > span.current {
+.menu__item > button.current {
   position: relative;
   padding-bottom: 2px;
 
@@ -94,6 +94,7 @@
     background-color: #ff6b08;
   }
 }
+
 // INPUT AND LIBRARY BUTTONS //
 .input-buttons__container {
   margin-top: 45px;
@@ -128,6 +129,7 @@
   }
 }
 .library__buttons {
+  max-width: 280px;
   display: inline-block;
   padding-bottom: 65px;
   //Must be 65px but for some reason it doesn't fit the container
@@ -141,6 +143,8 @@
   display: flex;
 }
 .library__buttons--item {
+  border-radius: 5px;
+  max-width: 130px;
   padding: 0;
   &:not(:last-child) {
     margin-right: 15px;
@@ -150,8 +154,10 @@
     background-color: #ff6b01;
   }
   & > button {
+    min-width: 130px;
     background: transparent;
-    padding: 14px 38px 12px;
+    padding-top: 14px;
+    padding-bottom: 12px;
     font-family: $primary-font;
     font-size: 14px;
     font-weight: $medium;
@@ -167,48 +173,48 @@
 .home {
   background-image: url('../img/header-home-desktop.jpg');
   @media screen and (min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi),
+  screen and (min-resolution: 2dppx) {
+  background-image: url('../img/header-home-mobile@2x.jpg');
+ }
+@media screen and (min-width: 768px) {
+  background-image: url('../img/header-home-tablet.jpg');
+  @media screen and (min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-home-mobile@2x.jpg');
+    background-image: url('../img/header-home-tablet@2x.jpg');
   }
-  @media screen and (min-width: 768px) {
-    background-image: url('../img/header-home-tablet.jpg');
-    @media screen and (min-device-pixel-ratio: 2),
-      screen and (min-resolution: 192dpi),
-      screen and (min-resolution: 2dppx) {
-      background-image: url('../img/header-home-tablet@2x.jpg');
-    }
+}
+@media screen and (min-width: 1024px) {
+  background-image: url('../img/header-home-desktop.jpg');
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    background-image: url('../img/header-home-desktop@2x.jpg');
   }
-  @media screen and (min-width: 1024px) {
-    background-image: url('../img/header-home-desktop.jpg');
-    @media screen and (min-device-pixel-ratio: 2),
-      screen and (min-resolution: 192dpi),
-      screen and (min-resolution: 2dppx) {
-      background-image: url('../img/header-home-desktop@2x.jpg');
-    }
-  }
+}
 }
 .library {
   background-image: url('../img/header-library-desktop.jpg');
   @media screen and (min-device-pixel-ratio: 2),
+  screen and (min-resolution: 192dpi),
+  screen and (min-resolution: 2dppx) {
+  background-image: url('../img/header-library-mobile@2x.jpg');
+ }
+@media screen and (min-width: 768px) {
+  background-image: url('../img/header-library-tablet.jpg');
+  @media screen and (min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-library-mobile@2x.jpg');
+    background-image: url('../img/header-library-tablet@2x.jpg');
   }
-  @media screen and (min-width: 768px) {
-    background-image: url('../img/header-library-tablet.jpg');
-    @media screen and (min-device-pixel-ratio: 2),
-      screen and (min-resolution: 192dpi),
-      screen and (min-resolution: 2dppx) {
-      background-image: url('../img/header-library-tablet@2x.jpg');
-    }
+}
+@media screen and (min-width: 1024px) {
+  background-image: url('../img/header-library-desktop.jpg');
+  @media screen and (min-device-pixel-ratio: 2),
+    screen and (min-resolution: 192dpi),
+    screen and (min-resolution: 2dppx) {
+    background-image: url('../img/header-library-desktop@2x.jpg');
   }
-  @media screen and (min-width: 1024px) {
-    background-image: url('../img/header-library-desktop.jpg');
-    @media screen and (min-device-pixel-ratio: 2),
-      screen and (min-resolution: 192dpi),
-      screen and (min-resolution: 2dppx) {
-      background-image: url('../img/header-library-desktop@2x.jpg');
-    }
-  }
+}
 }
