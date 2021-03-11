@@ -5,3 +5,4 @@ import './js/modal';
 import './js/fetchService';
 import './js/header-buttons';
 import './js/addLocalStrg';
+import './js/modalTeam';
