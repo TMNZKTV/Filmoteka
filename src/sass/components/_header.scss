@@ -5,19 +5,16 @@
   background-size: cover;
 }
 
-
-
-
-.page__header .container {
+.page__header {
   max-height: 230px;
   padding-top: 41px;
-  padding-bottom: 59px;
+  padding: 60px 0;
 }
 // NAVIGATION //
 .navigation {
   display: flex;
-  flex-wrap: wrap;
-  justify-content: baseline;
+  align-items: center;
+  margin-bottom: 35px;
 }
 .navigation__logo--mobile {
   width: 20px;
@@ -56,7 +53,7 @@
 .menu__container {
   display: flex;
   margin-left: auto;
-  margin-right:20 px;
+  // margin-right: 20 px;
 }
 .menu__list {
   display: flex;
@@ -71,39 +68,39 @@
   font-size: 12px;
   line-height: 1.2;
   color: $light-text-color;
+  padding: 15px 0;
 
   background-color: transparent;
   background-repeat: no-repeat;
   border: none;
-  overflow: hidden;
+  // overflow: hidden;
   outline: none;
-  padding: 0;
+  cursor: pointer;
 }
-.menu__item > button.current {
+.menu__item > button .current {
   position: relative;
-  padding-bottom: 2px;
+  // padding-bottom: 2px;
 
   &::after {
     position: absolute;
     content: '';
+    display: block;
     width: 100%;
     height: 3px;
     left: 0;
-    right: 0;
-    bottom: 0;
+    bottom: -3px;
     background-color: #ff6b08;
   }
 }
 
 // INPUT AND LIBRARY BUTTONS //
 .input-buttons__container {
-  margin-top: 45px;
   display: flex;
   justify-content: center;
 }
 
 .input__container {
-  padding-bottom: 60px;
+  // padding-bottom: 60px;
   // Must be 97px but for some reason it doesn't fit the container //
 }
 .input__field {
@@ -167,54 +164,55 @@
     border-radius: 5px;
     overflow: hidden;
     outline: none;
+    cursor: pointer;
   }
 }
 
 .home {
   background-image: url('../img/header-home-desktop.jpg');
   @media screen and (min-device-pixel-ratio: 2),
-  screen and (min-resolution: 192dpi),
-  screen and (min-resolution: 2dppx) {
-  background-image: url('../img/header-home-mobile@2x.jpg');
- }
-@media screen and (min-width: 768px) {
-  background-image: url('../img/header-home-tablet.jpg');
-  @media screen and (min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-home-tablet@2x.jpg');
+    background-image: url('../img/header-home-mobile@2x.jpg');
   }
-}
-@media screen and (min-width: 1024px) {
-  background-image: url('../img/header-home-desktop.jpg');
-  @media screen and (min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-home-desktop@2x.jpg');
+  @media screen and (min-width: 768px) {
+    background-image: url('../img/header-home-tablet.jpg');
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('../img/header-home-tablet@2x.jpg');
+    }
   }
-}
+  @media screen and (min-width: 1024px) {
+    background-image: url('../img/header-home-desktop.jpg');
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('../img/header-home-desktop@2x.jpg');
+    }
+  }
 }
 .library {
   background-image: url('../img/header-library-desktop.jpg');
   @media screen and (min-device-pixel-ratio: 2),
-  screen and (min-resolution: 192dpi),
-  screen and (min-resolution: 2dppx) {
-  background-image: url('../img/header-library-mobile@2x.jpg');
- }
-@media screen and (min-width: 768px) {
-  background-image: url('../img/header-library-tablet.jpg');
-  @media screen and (min-device-pixel-ratio: 2),
     screen and (min-resolution: 192dpi),
     screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-library-tablet@2x.jpg');
+    background-image: url('../img/header-library-mobile@2x.jpg');
   }
-}
-@media screen and (min-width: 1024px) {
-  background-image: url('../img/header-library-desktop.jpg');
-  @media screen and (min-device-pixel-ratio: 2),
-    screen and (min-resolution: 192dpi),
-    screen and (min-resolution: 2dppx) {
-    background-image: url('../img/header-library-desktop@2x.jpg');
+  @media screen and (min-width: 768px) {
+    background-image: url('../img/header-library-tablet.jpg');
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('../img/header-library-tablet@2x.jpg');
+    }
   }
-}
+  @media screen and (min-width: 1024px) {
+    background-image: url('../img/header-library-desktop.jpg');
+    @media screen and (min-device-pixel-ratio: 2),
+      screen and (min-resolution: 192dpi),
+      screen and (min-resolution: 2dppx) {
+      background-image: url('../img/header-library-desktop@2x.jpg');
+    }
+  }
 }
