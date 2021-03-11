@@ -10,5 +10,16 @@ modalTeam.addEventListener('click', showModal);
 
 function showModal(event) {
   event.preventDefault();
-  basicLightbox.create(team).show();
+  const instance = basicLightbox.create(team);
+  instance.show();
+  document.addEventListener('keydown', event => {
+    if (event.code === 'Escape') {
+      instance.close();
+    }
+  });
+  const btnClose = document.querySelector('[data-close-team]');
+  btnClose.addEventListener('click', event => {
+    event.preventDefault();
+    instance.close();
+  });
 }
