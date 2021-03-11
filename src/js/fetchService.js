@@ -83,6 +83,7 @@ function fetchByKeyWords() {
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
     if (results.length === 0) {
       notifyError('Try another word', 'No movies found for this request');
+
     }
     getRequestedFilmMarkup();
     numberMarkup(page, total_pages);
