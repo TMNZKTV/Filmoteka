@@ -7,32 +7,45 @@ import getMarkupLibrery from './librery-markup';
 
 const {
   galleryLibrery,
-  libraryPagination,
+  watchedPagination,
+  watchedPaginationList,
+  queuePagination,
+  queuePaginationList,
   btnWatched,
   btnQueue,
-  toPrevPageBtnLibrery,
-  toNextPageBtnLibrery,
+  toPrevPageBtnWatched,
+  toNextPageBtnWatched,
+  toPrevPageBtnQueue,
+  toNextPageBtnQueue
 } = refs;
 
-let page = 1;
+watchedPaginationList.addEventListener('click', onWatchedPaginationList);
+queuePaginationList.addEventListener('click', onQueuePaginationList);
+
+let queuePage = 1;
+let watchedPage = 1;
 
 function showWatched() {
+  queuePagination.classList.add('is-hidden');
   changeColorBtn(btnWatched, btnQueue);
   galleryLibrery.innerHTML = '';
   if (idWatched.length > 0) {
     if (idWatched.length > 19) {
-      libraryPagination.classList.remove('is-hidden');
-      page = 1;
-      getListByPage(page, idWatched).forEach(id => markupListByPage(id));
-
-      toNextPageBtnLibrery.addEventListener('click', onNextPageWatched);
-      toPrevPageBtnLibrery.addEventListener('click', onPrevPageWatched);
+      watchedPagination.classList.remove('is-hidden');
+      watchedPage = 1;
+      getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+      toNextPageBtnWatched.addEventListener('click', onNextPageWatched);
+      toPrevPageBtnWatched.addEventListener('click', onPrevPageWatched);
+      const totalPages = Math.ceil(idWatched.length / 20);
+      numberMarkup(watchedPage, totalPages, watchedPaginationList);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      
     } else {
-      libraryPagination.classList.add('is-hidden');
+      watchedPagination.classList.add('is-hidden');
       idWatched.forEach(id => markupListByPage(id));
     }
   } else {
-    libraryPagination.classList.add('is-hidden');
+    watchedPagination.classList.add('is-hidden');
     galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вы ничего не добавили</p></li>`;
   }
 }
@@ -40,21 +53,24 @@ function showWatched() {
 function showQueue() {
   changeColorBtn(btnQueue, btnWatched);
   galleryLibrery.innerHTML = '';
+  watchedPagination.classList.add('is-hidden');
+
   if (idQueue.length > 0) {
     if (idQueue.length > 19) {
-      libraryPagination.classList.remove('is-hidden');
-      getListByPage(page, idQueue).forEach(id => markupListByPage(id));
-
-      // здесь нужны кнопки для queue, иначе срабатывают клики watched
-
-      //   toNextPageBtnLibrery.addEventListener('click', onNextPageQueue);
-      //   toPrevPageBtnLibrery.addEventListener('click', onPrevPageQueue);
+      queuePagination.classList.remove('is-hidden');
+      getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+      toNextPageBtnQueue.addEventListener('click', onNextPageQueue);
+      toPrevPageBtnQueue.addEventListener('click', onPrevPageQueue);
+      const totalPages = Math.ceil(idQueue.length / 20);
+      numberMarkup(queuePage, totalPages, queuePaginationList);
+      console.log(queuePage)
+      highlightCurrentPage(queuePaginationList.children, queuePage);
     } else {
-      libraryPagination.classList.add('is-hidden');
+      queuePagination.classList.add('is-hidden');
       idQueue.forEach(id => markupListByPage(id));
     }
   } else {
-    libraryPagination.classList.add('is-hidden');
+    queuePagination.classList.add('is-hidden');
     galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вы ничего не добавили</p></li>`;
   }
 }
@@ -76,6 +92,18 @@ function showQueue() {
 //   });
 // }
 
+//функция, в которую приходит номер страницы и массив из локал-стореджа
+// результат функции - масиив длинной 20 (одна страница)
+
+function getListByPage(pageNumber, fullList) {
+  if (pageNumber < 1) return [];
+
+  const itemsPerPage = 20;
+  const start = (pageNumber - 1) * itemsPerPage;
+  const end = start + itemsPerPage;
+  return fullList.slice(start, end);
+}
+
 function markupListByPage(id) {
   apiService.fetchID(id).then(array => {
     const newArray = [array];
@@ -89,7 +117,6 @@ function markupListByPage(id) {
       }
       filmObj.date = newDate;
       filmObj.genre_names = names.join(', ');
-      console.log(newArray);
       getMarkupLibrery(newArray);
     });
   });
@@ -116,51 +143,162 @@ function markupListByPage(id) {
 //   }
 
 function onNextPageWatched() {
-  galleryLibrery.innerHTML = '';
-  page += 1;
-  getListByPage(page, idWatched).forEach(id => markupListByPage(id));
-  if (getListByPage(page, idWatched).length < 1) {
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вернитесь назад</p></li>`;
+  if (idWatched.length - watchedPage * 20 < 0 ) {
+    return;
   }
+  galleryLibrery.innerHTML = '';
+  watchedPage += 1;
+  getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+  // if (getListByPage(page, idWatched).length < 1) {
+  //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вернитесь назад</p></li>`;
+  // }
 }
 
 function onPrevPageWatched() {
-  galleryLibrery.innerHTML = '';
-  page -= 1;
-  getListByPage(page, idWatched).forEach(id => markupListByPage(id));
-  if (getListByPage(page, idWatched).length < 1) {
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
+  if (watchedPage === 1) {
+    return;
   }
+  galleryLibrery.innerHTML = '';
+  watchedPage -= 1;
+  getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+  // if (getListByPage(page, idWatched).length < 1) {
+  //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
+  // }
 }
 
 function onNextPageQueue() {
-  galleryLibrery.innerHTML = '';
-  page += 1;
-  getListByPage(page, idQueue).forEach(id => markupListByPage(id));
-  if (getListByPage(page, idQueue).length < 1) {
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вернитесь назад</p></li>`;
+  if (idQueue.length - queuePage * 20 < 0) {
+    return;
   }
+  galleryLibrery.innerHTML = '';
+  queuePage += 1;
+  getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+  // if (getListByPage(page, idQueue).length < 1) {
+  //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вернитесь назад</p></li>`;
+  // }
 }
 
 function onPrevPageQueue() {
-  galleryLibrery.innerHTML = '';
-  page -= 1;
-  getListByPage(page, idQueue).forEach(id => markupListByPage(id));
-  if (getListByPage(page, idQueue).length < 1) {
-    galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
+  if (queuePage === 1) {
+    return;
   }
+  galleryLibrery.innerHTML = '';
+  queuePage -= 1;
+  getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+  // if (getListByPage(page, idQueue).length < 1) {
+  //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
+  // }
 }
 
-//функция, в которую приходит номер страницы и массив из локал-стореджа
-// результат функции - масиив длинной 20 (одна страница)
 
-function getListByPage(pageNumber, fullList) {
-  if (pageNumber < 1) return [];
+function numberMarkup(page, total_pages, numberList) {
+  numberList.innerHTML = '';
+  let listToShow = '';
+  let listItems = [];
+  const hiddenPrevPages =
+    '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
+  const hiddenNextPages =
+    '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
+  if (total_pages - page < 6) {
+    for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.unshift(item);
+    }
+  } else {
+    for (let i = page; i < page + 6 && i < total_pages; i += 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.push(item);
+    }
+  }
 
-  const itemsPerPage = 20;
-  const start = (pageNumber - 1) * itemsPerPage;
-  const end = start + itemsPerPage;
-  return fullList.slice(start, end);
+  listToShow = listItems.join(' ');
+  if (total_pages > 6) {
+    listToShow =
+      listItems.join(' ') +
+      hiddenNextPages +
+      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+  }
+  if (page > 5) {
+    listToShow =
+      `<li class="pagination__item"><button type="button">1</button></li>` +
+      hiddenPrevPages +
+      listItems.join(' ') +
+      hiddenNextPages +
+      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+  }
+  if (total_pages > 6 && page > total_pages - 6) {
+    listToShow =
+      `<li class="pagination__item"><button type="button">1</button></li>` +
+      hiddenPrevPages +
+      listItems.join(' ');
+  }
+  numberList.insertAdjacentHTML('beforeend', listToShow);
+}
+
+function onWatchedPaginationList(event) {
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  galleryLibrery.innerHTML = '';
+  const totalPages = Math.ceil(idWatched.length / 20);
+  const currentPage = event.target;
+  watchedPage = currentPage.innerHTML;
+  if (event.target.dataset.action === 'showNextPages') {
+    watchedPage += 6;
+    getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+    numberMarkup(watchedPage, totalPages, watchedPaginationList);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage);
+
+    return;
+  }
+  if (event.target.dataset.action === 'showPrevPages') {
+    watchedPage -= 5;
+    getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+    numberMarkup(watchedPage, totalPages, watchedPaginationList);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage);
+
+    return;
+  }
+  getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+  numberMarkup(watchedPage, totalPages, watchedPaginationList);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage);
+}
+
+function onQueuePaginationList(event) {
+  if (event.target.nodeName !== 'BUTTON') {
+    return;
+  }
+  galleryLibrery.innerHTML = '';
+  const totalPages = Math.ceil(idWatched.length / 20);
+  const currentPage = event.target;
+  queuePage = currentPage.innerHTML;
+  if (event.target.dataset.action === 'showNextPages') {
+    queuePage += 6;
+    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+    numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
+    return;
+  }
+  if (event.target.dataset.action === 'showPrevPages') {
+    queuePage -= 5;
+    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+    numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
+    return;
+  }
+  
+  getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+  numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
+}
+
+function highlightCurrentPage(paginationListArray, page) {
+  paginationListArray.forEach(item => {
+    if (+item.textContent === +page) {
+      item.classList.add('current');
+    }
+  });
 }
 
 export { showWatched, showQueue };
+
