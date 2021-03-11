@@ -199,6 +199,41 @@ function numberMarkup(page, total_pages, numberList) {
     '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
   const hiddenNextPages =
     '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
+  
+  if (window.screen.width < 767) {if (total_pages - page < 3) {
+    for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.unshift(item);
+    }
+  } else {
+    for (let i = page; i < page + 3 && i < total_pages; i += 1) {
+      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+      listItems.push(item);
+    }
+  }
+
+  listToShow = listItems.join(' ');
+  if (total_pages > 3) {
+    listToShow =
+      listItems.join(' ') +
+      hiddenNextPages +
+      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+  }
+  if (page > 3) {
+    listToShow =
+      hiddenPrevPages +
+      listItems.join(' ') +
+      hiddenNextPages;
+  }
+  if (total_pages > 3 && page > total_pages - 3) {
+    listToShow =
+      hiddenPrevPages +
+      listItems.join(' ');
+  }
+  numberList.insertAdjacentHTML('beforeend', listToShow);
+    return;
+  }
+  
   if (total_pages - page < 6) {
     for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
       const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
@@ -243,22 +278,38 @@ function onWatchedPaginationList(event) {
   const totalPages = Math.ceil(idWatched.length / 20);
   const currentPage = event.target;
   watchedPage = currentPage.innerHTML;
+  if (window.screen.width < 767) {
+    if (event.target.dataset.action === 'showNextPages') {
+      watchedPage += 3;
+      getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+      numberMarkup(watchedPage, totalPages, watchedPaginationList);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      return;
+    }
+    if (event.target.dataset.action === 'showPrevPages') {
+      watchedPage -= 3;
+      getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+      numberMarkup(watchedPage, totalPages, watchedPaginationList);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      return;
+  }
+  } else {
   if (event.target.dataset.action === 'showNextPages') {
-    watchedPage += 6;
-    getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
-    numberMarkup(watchedPage, totalPages, watchedPaginationList);
-  highlightCurrentPage(watchedPaginationList.children, watchedPage);
-
-    return;
+      watchedPage += 6;
+      getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+      numberMarkup(watchedPage, totalPages, watchedPaginationList);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      return;
+    }
+    if (event.target.dataset.action === 'showPrevPages') {
+      watchedPage -= 5;
+      getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+      numberMarkup(watchedPage, totalPages, watchedPaginationList);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      return;
   }
-  if (event.target.dataset.action === 'showPrevPages') {
-    watchedPage -= 5;
-    getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
-    numberMarkup(watchedPage, totalPages, watchedPaginationList);
-  highlightCurrentPage(watchedPaginationList.children, watchedPage);
-
-    return;
   }
+  
   getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
   numberMarkup(watchedPage, totalPages, watchedPaginationList);
   highlightCurrentPage(watchedPaginationList.children, watchedPage);
@@ -272,7 +323,23 @@ function onQueuePaginationList(event) {
   const totalPages = Math.ceil(idWatched.length / 20);
   const currentPage = event.target;
   queuePage = currentPage.innerHTML;
-  if (event.target.dataset.action === 'showNextPages') {
+  if (window.screen.width < 767) { 
+    if (event.target.dataset.action === 'showNextPages') {
+    queuePage += 3;
+    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+    numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
+    return;
+  }
+  if (event.target.dataset.action === 'showPrevPages') {
+    queuePage -= 3;
+    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+    numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
+    return;
+  }
+  } else {
+     if (event.target.dataset.action === 'showNextPages') {
     queuePage += 6;
     getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
     numberMarkup(queuePage, totalPages, queuePaginationList);
@@ -286,7 +353,8 @@ function onQueuePaginationList(event) {
   highlightCurrentPage(queuePaginationList.children, queuePage);
     return;
   }
-  
+  }
+
   getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
   numberMarkup(queuePage, totalPages, queuePaginationList);
   highlightCurrentPage(queuePaginationList.children, queuePage);
