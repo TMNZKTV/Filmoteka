@@ -132,3 +132,22 @@
   color: $light-text-color;
   background-color: $accent-color;
 }
+
+.library-notification {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 500px;
+  padding: 40px;
+  background-color: $accent-color;
+  border-radius: 10px;
+  text-align: center;
+  @media screen and (max-width: 766px) {
+    max-width: 240px;
+  }
+
+  &__text {
+    font-size: 22px;
+    color: #ffffff;
+  }
+}

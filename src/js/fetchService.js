@@ -3,7 +3,7 @@ import apiService from './apiService.js';
 import getMarkupGallery from './gallery-markup.js';
 // libraries
 import debounce from 'lodash.debounce';
-import { notifyInfo } from './notifications.js';
+import { notifyInfo, notifyError } from './notifications.js';
 
 setTimeout(initialFetch, 0);
 
@@ -82,7 +82,7 @@ function fetchByKeyWords() {
   cleanPagesMarkup();
   apiService.fetchMovies().then(({ results, page, total_pages }) => {
     if (results.length === 0) {
-      notifyInfo('Try another word', 'No movies found for this request');
+      notifyError('Try another word', 'No movies found for this request');
     }
     getRequestedFilmMarkup();
     numberMarkup(page, total_pages);
