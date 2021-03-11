@@ -150,6 +150,9 @@ function onNextPageWatched() {
   galleryLibrery.innerHTML = '';
   watchedPage += 1;
   getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+  const totalPages = Math.ceil(idWatched.length / 20);
+  numberMarkup(watchedPage, totalPages, watchedPaginationList);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage);
   // if (getListByPage(page, idWatched).length < 1) {
   //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Вернитесь назад</p></li>`;
   // }
@@ -162,6 +165,9 @@ function onPrevPageWatched() {
   galleryLibrery.innerHTML = '';
   watchedPage -= 1;
   getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
+  const totalPages = Math.ceil(idWatched.length / 20);
+  numberMarkup(watchedPage, totalPages, watchedPaginationList);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage);
   // if (getListByPage(page, idWatched).length < 1) {
   //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
   // }
@@ -185,7 +191,10 @@ function onPrevPageQueue() {
   }
   galleryLibrery.innerHTML = '';
   queuePage -= 1;
+  const totalPages = Math.ceil(idWatched.length / 20);
   getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+  numberMarkup(queuePage, totalPages, queuePaginationList);
+  highlightCurrentPage(queuePaginationList.children, queuePage);
   // if (getListByPage(page, idQueue).length < 1) {
   //   galleryLibrery.innerHTML = `<li class="modal__keyItem"><p style="color:red;font-size:24px;text-align:center;">Ткните вперед</p></li>`;
   // }
@@ -277,21 +286,19 @@ function onWatchedPaginationList(event) {
   }
   galleryLibrery.innerHTML = '';
   const totalPages = Math.ceil(idWatched.length / 20);
-  const currentPage = event.target;
-  watchedPage = currentPage.innerHTML;
   if (window.screen.width < 767) {
     if (event.target.dataset.action === 'showNextPages') {
       watchedPage += 3;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
       return;
     }
     if (event.target.dataset.action === 'showPrevPages') {
       watchedPage -= 3;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
       return;
   }
   } else {
@@ -299,21 +306,21 @@ function onWatchedPaginationList(event) {
       watchedPage += 6;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
       return;
     }
     if (event.target.dataset.action === 'showPrevPages') {
       watchedPage -= 5;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage);
+      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
       return;
   }
   }
   
   getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
   numberMarkup(watchedPage, totalPages, watchedPaginationList);
-  highlightCurrentPage(watchedPaginationList.children, watchedPage);
+  highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
 }
 
 function onQueuePaginationList(event) {
@@ -322,21 +329,19 @@ function onQueuePaginationList(event) {
   }
   galleryLibrery.innerHTML = '';
   const totalPages = Math.ceil(idWatched.length / 20);
-  const currentPage = event.target;
-  queuePage = currentPage.innerHTML;
   if (window.screen.width < 767) { 
     if (event.target.dataset.action === 'showNextPages') {
     queuePage += 3;
     getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
     numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage);
+  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
     return;
   }
   if (event.target.dataset.action === 'showPrevPages') {
     queuePage -= 3;
     getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
     numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage);
+  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
     return;
   }
   } else {
@@ -344,21 +349,21 @@ function onQueuePaginationList(event) {
     queuePage += 6;
     getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
     numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage);
+  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
     return;
   }
   if (event.target.dataset.action === 'showPrevPages') {
     queuePage -= 5;
     getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
     numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage);
+  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
     return;
   }
   }
 
   getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
   numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage);
+  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
 }
 
 function highlightCurrentPage(paginationListArray, page) {
