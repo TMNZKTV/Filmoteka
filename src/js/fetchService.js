@@ -138,7 +138,6 @@ function onPageClick(event) {
       return;
     }
     if (event.target.dataset.action === 'showPrevPages') {
-      console.log();
       apiService.page -= 3;
       makePopularOrKeyWordFetch();
       return;
@@ -211,7 +210,6 @@ function numberMarkup(page, total_pages) {
     '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
   const hiddenNextPages =
     '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
-  console.log(window.screen.width);
 
   if (window.screen.width < 767) {
     if (total_pages - page < 3) {

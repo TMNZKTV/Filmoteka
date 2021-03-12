@@ -38,7 +38,7 @@
     padding-bottom: 40px;
     padding-right: 30px;
     padding-left: 30px;
-    top: 30px;
+    top: 50px;
     left: 50%;
     transform: translate(-50%) scale(1);
 
@@ -48,8 +48,16 @@
   }
 
   @include for-size(desktop) {
+    top: 50%;
+    left: 50%;
     width: 882px;
     height: auto;
+
+    transform: translate(-50%, -50%) scale(1);
+
+    .overlay.is-hidden & {
+      transform: translate(-50%, -50%) scale(0);
+    }
   }
 
   background-color: $light-text-color;
