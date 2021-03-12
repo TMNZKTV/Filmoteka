@@ -17,7 +17,9 @@ function toggleModal() {
 
 function closeModalESC(event) {
   if (event.code === 'Escape') {
-    toggleModal();
+    if (!overlay.classList.contains('is-hidden')) {
+      toggleModal();
+    }
     document.removeEventListener('keydown', closeModalESC);
   }
 }
