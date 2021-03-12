@@ -105,8 +105,9 @@
               class="spinner-grow is-hidden"
               style="width: 8rem; height: 8rem"
               role="status"
+              id="spinner-home"
             >
-              <span class="is-hidden">Loading...</span>
+              <span class="visually-hidden">Loading...</span>
             </div>
           </div>
 
@@ -128,6 +129,17 @@
       </section>
       <section class="section js-librery is-hidden">
         <div class="container">
+          <div class="d-flex justify-content-center spinner">
+            <div
+              class="spinner-grow text-warning is-hidden"
+              style="width: 8rem; height: 8rem"
+              role="status"
+              id="spinner-library"
+            >
+              <span class="visually-hidden">Loading...</span>
+            </div>
+          </div>
+
           <ul class="gallery js-gallery__librery"></ul>
           <div class="watched-pagination pagination is-hidden">
             <button class="pagination__arrow-left" type="button">

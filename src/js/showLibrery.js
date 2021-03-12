@@ -17,7 +17,7 @@ const {
   toPrevPageBtnWatched,
   toNextPageBtnWatched,
   toPrevPageBtnQueue,
-  toNextPageBtnQueue
+  toNextPageBtnQueue,
 } = refs;
 
 watchedPaginationList.addEventListener('click', onWatchedPaginationList);
@@ -40,7 +40,6 @@ function showWatched() {
       const totalPages = Math.ceil(idWatched.length / 20);
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
       highlightCurrentPage(watchedPaginationList.children, watchedPage);
-      
     } else {
       watchedPagination.classList.add('is-hidden');
       idWatched.forEach(id => markupListByPage(id));
@@ -64,7 +63,7 @@ function showQueue() {
       toPrevPageBtnQueue.addEventListener('click', onPrevPageQueue);
       const totalPages = Math.ceil(idQueue.length / 20);
       numberMarkup(queuePage, totalPages, queuePaginationList);
-      console.log(queuePage)
+      console.log(queuePage);
       highlightCurrentPage(queuePaginationList.children, queuePage);
     } else {
       queuePagination.classList.add('is-hidden');
@@ -72,7 +71,7 @@ function showQueue() {
     }
   } else {
     queuePagination.classList.add('is-hidden');
-     galleryLibrery.innerHTML = `<div class="library-notification"><p class="library-notification__text">Your list of added movies is empty</p></div>`;
+    galleryLibrery.innerHTML = `<div class="library-notification"><p class="library-notification__text">Your list of added movies is empty</p></div>`;
   }
 }
 
@@ -106,21 +105,27 @@ function getListByPage(pageNumber, fullList) {
 }
 
 function markupListByPage(id) {
-  apiService.fetchID(id).then(array => {
-    const newArray = [array];
-    newArray.forEach(filmObj => {
-      const { genres } = filmObj;
-      const { release_date } = filmObj;
-      const newDate = release_date.slice(0, 4);
-      const names = genres.map(genre => genre.name);
-      if (names.length > 2) {
-        names.splice(2, names.length - 1, 'Other');
-      }
-      filmObj.date = newDate;
-      filmObj.genre_names = names.join(', ');
-      getMarkupLibrery(newArray);
+  refs.spinnerLibrary.classList.remove('is-hidden');
+  apiService
+    .fetchID(id)
+    .then(array => {
+      const newArray = [array];
+      newArray.forEach(filmObj => {
+        const { genres } = filmObj;
+        const { release_date } = filmObj;
+        const newDate = release_date.slice(0, 4);
+        const names = genres.map(genre => genre.name);
+        if (names.length > 2) {
+          names.splice(2, names.length - 1, 'Other');
+        }
+        filmObj.date = newDate;
+        filmObj.genre_names = names.join(', ');
+        getMarkupLibrery(newArray);
+      });
+    })
+    .finally(() => {
+      refs.spinnerLibrary.classList.add('is-hidden');
     });
-  });
 }
 
 // function getRequestedFilmMarkup() {
@@ -144,7 +149,7 @@ function markupListByPage(id) {
 //   }
 
 function onNextPageWatched() {
-  if (idWatched.length - watchedPage * 20 < 0 ) {
+  if (idWatched.length - watchedPage * 20 < 0) {
     return;
   }
   galleryLibrery.innerHTML = '';
@@ -200,7 +205,6 @@ function onPrevPageQueue() {
   // }
 }
 
-
 function numberMarkup(page, total_pages, numberList) {
   numberList.innerHTML = '';
   let listToShow = '';
@@ -209,41 +213,37 @@ function numberMarkup(page, total_pages, numberList) {
     '<li class="pagination__item"><button type="button" data-action="showPrevPages">...</button></li>';
   const hiddenNextPages =
     '<li class="pagination__item"><button type="button" data-action="showNextPages">...</button></li>';
-  
-  if (window.screen.width < 767) {if (total_pages - page < 3) {
-    for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
-      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-      listItems.unshift(item);
-    }
-  } else {
-    for (let i = page; i < page + 3 && i < total_pages; i += 1) {
-      const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
-      listItems.push(item);
-    }
-  }
 
-  listToShow = listItems.join(' ');
-  if (total_pages > 3) {
-    listToShow =
-      listItems.join(' ') +
-      hiddenNextPages +
-      `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
-  }
-  if (page > 3) {
-    listToShow =
-      hiddenPrevPages +
-      listItems.join(' ') +
-      hiddenNextPages;
-  }
-  if (total_pages > 3 && page > total_pages - 3) {
-    listToShow =
-      hiddenPrevPages +
-      listItems.join(' ');
-  }
-  numberList.insertAdjacentHTML('beforeend', listToShow);
+  if (window.screen.width < 767) {
+    if (total_pages - page < 3) {
+      for (let i = total_pages; i > total_pages - 3 && i > 0; i -= 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        listItems.unshift(item);
+      }
+    } else {
+      for (let i = page; i < page + 3 && i < total_pages; i += 1) {
+        const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
+        listItems.push(item);
+      }
+    }
+
+    listToShow = listItems.join(' ');
+    if (total_pages > 3) {
+      listToShow =
+        listItems.join(' ') +
+        hiddenNextPages +
+        `<li class="pagination__item"><button type="button">${total_pages}</button></li>`;
+    }
+    if (page > 3) {
+      listToShow = hiddenPrevPages + listItems.join(' ') + hiddenNextPages;
+    }
+    if (total_pages > 3 && page > total_pages - 3) {
+      listToShow = hiddenPrevPages + listItems.join(' ');
+    }
+    numberList.insertAdjacentHTML('beforeend', listToShow);
     return;
   }
-  
+
   if (total_pages - page < 6) {
     for (let i = total_pages; i > total_pages - 6 && i > 0; i -= 1) {
       const item = `<li class="pagination__item"><button type="button">${i}</button></li>`;
@@ -291,33 +291,45 @@ function onWatchedPaginationList(event) {
       watchedPage += 3;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
+      highlightCurrentPage(
+        watchedPaginationList.children,
+        watchedPage.innerHTML,
+      );
       return;
     }
     if (event.target.dataset.action === 'showPrevPages') {
       watchedPage -= 3;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
+      highlightCurrentPage(
+        watchedPaginationList.children,
+        watchedPage.innerHTML,
+      );
       return;
-  }
+    }
   } else {
-  if (event.target.dataset.action === 'showNextPages') {
+    if (event.target.dataset.action === 'showNextPages') {
       watchedPage += 6;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
+      highlightCurrentPage(
+        watchedPaginationList.children,
+        watchedPage.innerHTML,
+      );
       return;
     }
     if (event.target.dataset.action === 'showPrevPages') {
       watchedPage -= 5;
       getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
       numberMarkup(watchedPage, totalPages, watchedPaginationList);
-      highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
+      highlightCurrentPage(
+        watchedPaginationList.children,
+        watchedPage.innerHTML,
+      );
       return;
+    }
   }
-  }
-  
+
   getListByPage(watchedPage, idWatched).forEach(id => markupListByPage(id));
   numberMarkup(watchedPage, totalPages, watchedPaginationList);
   highlightCurrentPage(watchedPaginationList.children, watchedPage.innerHTML);
@@ -329,36 +341,36 @@ function onQueuePaginationList(event) {
   }
   galleryLibrery.innerHTML = '';
   const totalPages = Math.ceil(idWatched.length / 20);
-  if (window.screen.width < 767) { 
+  if (window.screen.width < 767) {
     if (event.target.dataset.action === 'showNextPages') {
-    queuePage += 3;
-    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
-    numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
-    return;
-  }
-  if (event.target.dataset.action === 'showPrevPages') {
-    queuePage -= 3;
-    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
-    numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
-    return;
-  }
+      queuePage += 3;
+      getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+      numberMarkup(queuePage, totalPages, queuePaginationList);
+      highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
+      return;
+    }
+    if (event.target.dataset.action === 'showPrevPages') {
+      queuePage -= 3;
+      getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+      numberMarkup(queuePage, totalPages, queuePaginationList);
+      highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
+      return;
+    }
   } else {
-     if (event.target.dataset.action === 'showNextPages') {
-    queuePage += 6;
-    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
-    numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
-    return;
-  }
-  if (event.target.dataset.action === 'showPrevPages') {
-    queuePage -= 5;
-    getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
-    numberMarkup(queuePage, totalPages, queuePaginationList);
-  highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
-    return;
-  }
+    if (event.target.dataset.action === 'showNextPages') {
+      queuePage += 6;
+      getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+      numberMarkup(queuePage, totalPages, queuePaginationList);
+      highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
+      return;
+    }
+    if (event.target.dataset.action === 'showPrevPages') {
+      queuePage -= 5;
+      getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
+      numberMarkup(queuePage, totalPages, queuePaginationList);
+      highlightCurrentPage(queuePaginationList.children, queuePage.innerHTML);
+      return;
+    }
   }
 
   getListByPage(queuePage, idQueue).forEach(id => markupListByPage(id));
@@ -375,4 +387,3 @@ function highlightCurrentPage(paginationListArray, page) {
 }
 
 export { showWatched, showQueue };
-
