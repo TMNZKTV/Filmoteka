@@ -45,7 +45,8 @@ const refs = {
   queuePagination: document.querySelector('.queue-pagination'),
   headerBack: document.querySelector('.page__header'),
 
-  spinner: document.querySelector('.spinner-grow'),
+  spinner: document.getElementById('spinner-home'),
+  spinnerLibrary: document.getElementById('spinner-library'),
 };
 
 export default refs;
