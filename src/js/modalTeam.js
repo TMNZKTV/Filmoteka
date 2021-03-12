@@ -10,23 +10,33 @@ modalTeam.addEventListener('click', showModal);
 
 function showModal(event) {
   event.preventDefault();
-  const instance = basicLightbox.create(team);
+  const instance = basicLightbox.create(team, {
+    closable: false,
+  });
+
   instance.show();
-  if (instance.visible()) {
-    document.body.style.overflow = 'hidden';
+
+  document.body.style.overflow = 'hidden';
+
+  if (!instance.visible()) {
+    document.body.style.overflow = 'auto';
   }
+
   document.addEventListener('keydown', event => {
     if (event.code === 'Escape') {
       instance.close();
+      console.log(instance.visible());
       if (!instance.visible()) {
         document.body.style.overflow = 'auto';
       }
     }
   });
+
   const btnClose = document.querySelector('[data-close-team]');
   btnClose.addEventListener('click', event => {
     event.preventDefault();
     instance.close();
+    console.log(instance.visible());
     if (instance.visible()) {
       document.body.style.overflow = 'auto';
     }
